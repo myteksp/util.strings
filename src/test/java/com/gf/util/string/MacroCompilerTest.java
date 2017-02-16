@@ -40,7 +40,6 @@ public final class MacroCompilerTest {
 				}));
 		assertEquals("Here goes This is param 1. Repeat This is param 1. Second: 'This is the second'. Macro: ${MACRO_SUBSTITUDE}. Fourth: this is the fourth. Check: passed", 
 				MacroCompiler.compile("Here goes ${param1}. Repeat ${param1}. Second: '${param2}'. Macro: ${param3}. Fourth: ${param4}. Check: ${param{4}", params, new MacroCompiler.ValueSerializer() {
-
 					@Override
 					public final String serialize(final Object value) {
 						return value.toString();
