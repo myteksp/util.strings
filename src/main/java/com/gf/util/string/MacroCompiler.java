@@ -3,7 +3,7 @@ package com.gf.util.string;
 import java.util.Map;
 
 public final class MacroCompiler {
-	public final String compile(final String script, 
+	public static final String compile(final String script, 
 			final Map<String, Object> params, 
 			final ValueSerializer serializer){
 		
@@ -78,7 +78,7 @@ public final class MacroCompiler {
 		return sb.toString();
 	}
 	
-	public final String compile(final String script, 
+	public static final String compile(final String script, 
 			final Map<String, String> params){
 		if (script == null)
 			return "";
