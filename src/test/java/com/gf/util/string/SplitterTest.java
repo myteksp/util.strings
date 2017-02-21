@@ -17,6 +17,18 @@ public final class SplitterTest {
 	}
 	
 	@Test
+	public final void simpleBackwardsSplitTest(){
+		assertEquals(4, Splitter.split("First/Second/Third/Fourth", '/').length);
+		assertEquals(3, Splitter.split("First/Second/Third", '/').length);
+		assertEquals(0, Splitter.split("", '/').length);
+		assertEquals("First", Splitter.split("First/Second/Third/Fourth", '/')[0]);
+		assertEquals("Second", Splitter.split("First/Second/Third/Fourth", '/')[1]);
+		assertEquals("Third", Splitter.split("First/Second/Third/Fourth", '/')[2]);
+		assertEquals("Fourth", Splitter.split("First/Second/Third/Fourth", '/')[3]);
+		assertEquals("Lonly", Splitter.split("Lonly", '/')[0]);
+	}
+	
+	@Test
 	public final void escapesSplitTest(){
 		assertEquals(4, Splitter.split("First|Second|Third('|This|will|not|be|splitted|')|Fourth", '|', new char[]{'\''}).length);
 		assertEquals(3, Splitter.split("First|Second|Third('|This|will|not|be|splitted|')", '|', new char[]{'\''}).length);
