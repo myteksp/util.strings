@@ -15,7 +15,7 @@ public final class MacroCompiler {
 
 		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
 			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder();
+			private StringBuilder param = new StringBuilder(25);
 			@Override
 			public final void onChar(final int i, final char c, final int len) {
 				switch(c){
@@ -49,7 +49,7 @@ public final class MacroCompiler {
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
 						final String paranStr = param.toString();
-						param = new StringBuilder();
+						param = new StringBuilder(25);
 						final String paramValue = serializer.serialize(params.get(paranStr));
 						if (paramValue == null)
 							sb.append("${").append(paranStr).append('}');
@@ -90,7 +90,7 @@ public final class MacroCompiler {
 
 		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
 			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder();
+			private StringBuilder param = new StringBuilder(25);
 			@Override
 			public final void onChar(final int i, final char c, final int len) {
 				switch(c){
@@ -124,7 +124,7 @@ public final class MacroCompiler {
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
 						final String paranStr = param.toString();
-						param = new StringBuilder();
+						param = new StringBuilder(25);
 						final String paramValue = params.get(paranStr);
 						if (paramValue == null)
 							sb.append("${").append(paranStr).append('}');
@@ -165,7 +165,7 @@ public final class MacroCompiler {
 		
 		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
 			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder();
+			private StringBuilder param = new StringBuilder(25);
 			@Override
 			public final void onChar(final int i, final char c, final int len) {
 				switch(c){
@@ -199,7 +199,7 @@ public final class MacroCompiler {
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
 						final String paranStr = param.toString();
-						param = new StringBuilder();
+						param = new StringBuilder(25);
 						final String paramValue = params.get(Integer.parseInt(paranStr));
 						if (paramValue == null)
 							sb.append("${").append(paranStr).append('}');
