@@ -27,6 +27,14 @@ public final class StartArgs {
 		return Boolean.parseBoolean(val);
 	}
 	
+	public final double getLong(final String key){
+		final String val = getOneArg(key);
+		if (val == null)
+			throw new RuntimeException("arg '" + key + "' not found.");
+		
+		return Long.parseLong(val);
+	}
+	
 	public final double getDouble(final String key){
 		final String val = getOneArg(key);
 		if (val == null)
