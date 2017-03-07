@@ -27,7 +27,7 @@ public final class StartArgs {
 		return Boolean.parseBoolean(val);
 	}
 	
-	public final double getLong(final String key){
+	public final long getLong(final String key){
 		final String val = getOneArg(key);
 		if (val == null)
 			throw new RuntimeException("arg '" + key + "' not found.");
