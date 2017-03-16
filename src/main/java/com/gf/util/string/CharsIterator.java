@@ -1,8 +1,5 @@
 package com.gf.util.string;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 
 public final class CharsIterator {
 
@@ -791,66 +788,38 @@ public final class CharsIterator {
 		}
 	}
 
-
-	public final static void main(final String[] args) throws IOException {
-		final int toGenerate = 256;
-
-		StringBuilder sb = new StringBuilder("switch(len){\ncase 0:\nreturn;\n");
-		for (int i = 1; i < toGenerate; i++) {
-			sb.append("case ").append(i).append(":\niter").append(i - 1).append("(arr, consumer, actualLen);\nreturn;\n");
-		}
-		sb.append("default:\ninternalIter(arr, ").append(toGenerate - 1).append(", actualLen, consumer);\nfor (int i = ").append(toGenerate - 1).append("; i < len; i++)\nconsumer.onChar(i, arr[i], len);\nreturn;\n}");
-
-		File f = new File("code.txt");
-		f.createNewFile();
-		Files.write(f.toPath(), sb.toString().getBytes());
-
-		sb = new StringBuilder();
-		for (int i = 1; i < toGenerate; i++) {
-			sb.append("public static final void iter").append(i - 1).append("(final char[] arr, final CharConsumer consumer, final int len){\n");
-			for(int index = 0; index < i; index++){
-				sb.append("consumer.onChar(").append(index).append(", arr[").append(index).append("], len);\n");
-			}
-			sb.append("}\n");
-		}
-
-		f = new File("code1.txt");
-		f.createNewFile();
-		Files.write(f.toPath(), sb.toString().getBytes());
-	}
-
 	public static interface CharConsumer{
 		void onChar(final int index, final char c, final int length);
 	}
 	//===========================================================================================================================
 	//===============================================GENERATED CODE==============================================================
 	//===========================================================================================================================
-	public static final void iter0(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter0(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 	}
-	public static final void iter1(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter1(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 	}
-	public static final void iter2(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter2(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
 	}
-	public static final void iter3(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter3(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
 		consumer.onChar(3, arr[3], len);
 	}
-	public static final void iter4(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter4(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
 		consumer.onChar(3, arr[3], len);
 		consumer.onChar(4, arr[4], len);
 	}
-	public static final void iter5(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter5(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -858,7 +827,7 @@ public final class CharsIterator {
 		consumer.onChar(4, arr[4], len);
 		consumer.onChar(5, arr[5], len);
 	}
-	public static final void iter6(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter6(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -867,7 +836,7 @@ public final class CharsIterator {
 		consumer.onChar(5, arr[5], len);
 		consumer.onChar(6, arr[6], len);
 	}
-	public static final void iter7(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter7(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -877,7 +846,7 @@ public final class CharsIterator {
 		consumer.onChar(6, arr[6], len);
 		consumer.onChar(7, arr[7], len);
 	}
-	public static final void iter8(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter8(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -888,7 +857,7 @@ public final class CharsIterator {
 		consumer.onChar(7, arr[7], len);
 		consumer.onChar(8, arr[8], len);
 	}
-	public static final void iter9(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter9(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -900,7 +869,7 @@ public final class CharsIterator {
 		consumer.onChar(8, arr[8], len);
 		consumer.onChar(9, arr[9], len);
 	}
-	public static final void iter10(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter10(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -913,7 +882,7 @@ public final class CharsIterator {
 		consumer.onChar(9, arr[9], len);
 		consumer.onChar(10, arr[10], len);
 	}
-	public static final void iter11(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter11(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -927,7 +896,7 @@ public final class CharsIterator {
 		consumer.onChar(10, arr[10], len);
 		consumer.onChar(11, arr[11], len);
 	}
-	public static final void iter12(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter12(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -942,7 +911,7 @@ public final class CharsIterator {
 		consumer.onChar(11, arr[11], len);
 		consumer.onChar(12, arr[12], len);
 	}
-	public static final void iter13(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter13(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -958,7 +927,7 @@ public final class CharsIterator {
 		consumer.onChar(12, arr[12], len);
 		consumer.onChar(13, arr[13], len);
 	}
-	public static final void iter14(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter14(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -975,7 +944,7 @@ public final class CharsIterator {
 		consumer.onChar(13, arr[13], len);
 		consumer.onChar(14, arr[14], len);
 	}
-	public static final void iter15(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter15(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -993,7 +962,7 @@ public final class CharsIterator {
 		consumer.onChar(14, arr[14], len);
 		consumer.onChar(15, arr[15], len);
 	}
-	public static final void iter16(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter16(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1012,7 +981,7 @@ public final class CharsIterator {
 		consumer.onChar(15, arr[15], len);
 		consumer.onChar(16, arr[16], len);
 	}
-	public static final void iter17(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter17(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1032,7 +1001,7 @@ public final class CharsIterator {
 		consumer.onChar(16, arr[16], len);
 		consumer.onChar(17, arr[17], len);
 	}
-	public static final void iter18(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter18(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1053,7 +1022,7 @@ public final class CharsIterator {
 		consumer.onChar(17, arr[17], len);
 		consumer.onChar(18, arr[18], len);
 	}
-	public static final void iter19(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter19(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1075,7 +1044,7 @@ public final class CharsIterator {
 		consumer.onChar(18, arr[18], len);
 		consumer.onChar(19, arr[19], len);
 	}
-	public static final void iter20(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter20(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1098,7 +1067,7 @@ public final class CharsIterator {
 		consumer.onChar(19, arr[19], len);
 		consumer.onChar(20, arr[20], len);
 	}
-	public static final void iter21(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter21(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1122,7 +1091,7 @@ public final class CharsIterator {
 		consumer.onChar(20, arr[20], len);
 		consumer.onChar(21, arr[21], len);
 	}
-	public static final void iter22(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter22(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1147,7 +1116,7 @@ public final class CharsIterator {
 		consumer.onChar(21, arr[21], len);
 		consumer.onChar(22, arr[22], len);
 	}
-	public static final void iter23(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter23(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1173,7 +1142,7 @@ public final class CharsIterator {
 		consumer.onChar(22, arr[22], len);
 		consumer.onChar(23, arr[23], len);
 	}
-	public static final void iter24(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter24(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1200,7 +1169,7 @@ public final class CharsIterator {
 		consumer.onChar(23, arr[23], len);
 		consumer.onChar(24, arr[24], len);
 	}
-	public static final void iter25(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter25(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1228,7 +1197,7 @@ public final class CharsIterator {
 		consumer.onChar(24, arr[24], len);
 		consumer.onChar(25, arr[25], len);
 	}
-	public static final void iter26(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter26(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1257,7 +1226,7 @@ public final class CharsIterator {
 		consumer.onChar(25, arr[25], len);
 		consumer.onChar(26, arr[26], len);
 	}
-	public static final void iter27(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter27(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1287,7 +1256,7 @@ public final class CharsIterator {
 		consumer.onChar(26, arr[26], len);
 		consumer.onChar(27, arr[27], len);
 	}
-	public static final void iter28(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter28(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1318,7 +1287,7 @@ public final class CharsIterator {
 		consumer.onChar(27, arr[27], len);
 		consumer.onChar(28, arr[28], len);
 	}
-	public static final void iter29(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter29(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1350,7 +1319,7 @@ public final class CharsIterator {
 		consumer.onChar(28, arr[28], len);
 		consumer.onChar(29, arr[29], len);
 	}
-	public static final void iter30(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter30(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1383,7 +1352,7 @@ public final class CharsIterator {
 		consumer.onChar(29, arr[29], len);
 		consumer.onChar(30, arr[30], len);
 	}
-	public static final void iter31(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter31(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1417,7 +1386,7 @@ public final class CharsIterator {
 		consumer.onChar(30, arr[30], len);
 		consumer.onChar(31, arr[31], len);
 	}
-	public static final void iter32(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter32(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1452,7 +1421,7 @@ public final class CharsIterator {
 		consumer.onChar(31, arr[31], len);
 		consumer.onChar(32, arr[32], len);
 	}
-	public static final void iter33(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter33(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1488,7 +1457,7 @@ public final class CharsIterator {
 		consumer.onChar(32, arr[32], len);
 		consumer.onChar(33, arr[33], len);
 	}
-	public static final void iter34(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter34(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1525,7 +1494,7 @@ public final class CharsIterator {
 		consumer.onChar(33, arr[33], len);
 		consumer.onChar(34, arr[34], len);
 	}
-	public static final void iter35(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter35(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1563,7 +1532,7 @@ public final class CharsIterator {
 		consumer.onChar(34, arr[34], len);
 		consumer.onChar(35, arr[35], len);
 	}
-	public static final void iter36(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter36(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1602,7 +1571,7 @@ public final class CharsIterator {
 		consumer.onChar(35, arr[35], len);
 		consumer.onChar(36, arr[36], len);
 	}
-	public static final void iter37(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter37(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1642,7 +1611,7 @@ public final class CharsIterator {
 		consumer.onChar(36, arr[36], len);
 		consumer.onChar(37, arr[37], len);
 	}
-	public static final void iter38(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter38(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1683,7 +1652,7 @@ public final class CharsIterator {
 		consumer.onChar(37, arr[37], len);
 		consumer.onChar(38, arr[38], len);
 	}
-	public static final void iter39(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter39(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1725,7 +1694,7 @@ public final class CharsIterator {
 		consumer.onChar(38, arr[38], len);
 		consumer.onChar(39, arr[39], len);
 	}
-	public static final void iter40(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter40(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1768,7 +1737,7 @@ public final class CharsIterator {
 		consumer.onChar(39, arr[39], len);
 		consumer.onChar(40, arr[40], len);
 	}
-	public static final void iter41(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter41(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1812,7 +1781,7 @@ public final class CharsIterator {
 		consumer.onChar(40, arr[40], len);
 		consumer.onChar(41, arr[41], len);
 	}
-	public static final void iter42(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter42(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1857,7 +1826,7 @@ public final class CharsIterator {
 		consumer.onChar(41, arr[41], len);
 		consumer.onChar(42, arr[42], len);
 	}
-	public static final void iter43(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter43(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1903,7 +1872,7 @@ public final class CharsIterator {
 		consumer.onChar(42, arr[42], len);
 		consumer.onChar(43, arr[43], len);
 	}
-	public static final void iter44(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter44(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1950,7 +1919,7 @@ public final class CharsIterator {
 		consumer.onChar(43, arr[43], len);
 		consumer.onChar(44, arr[44], len);
 	}
-	public static final void iter45(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter45(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -1998,7 +1967,7 @@ public final class CharsIterator {
 		consumer.onChar(44, arr[44], len);
 		consumer.onChar(45, arr[45], len);
 	}
-	public static final void iter46(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter46(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2047,7 +2016,7 @@ public final class CharsIterator {
 		consumer.onChar(45, arr[45], len);
 		consumer.onChar(46, arr[46], len);
 	}
-	public static final void iter47(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter47(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2097,7 +2066,7 @@ public final class CharsIterator {
 		consumer.onChar(46, arr[46], len);
 		consumer.onChar(47, arr[47], len);
 	}
-	public static final void iter48(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter48(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2148,7 +2117,7 @@ public final class CharsIterator {
 		consumer.onChar(47, arr[47], len);
 		consumer.onChar(48, arr[48], len);
 	}
-	public static final void iter49(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter49(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2200,7 +2169,7 @@ public final class CharsIterator {
 		consumer.onChar(48, arr[48], len);
 		consumer.onChar(49, arr[49], len);
 	}
-	public static final void iter50(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter50(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2253,7 +2222,7 @@ public final class CharsIterator {
 		consumer.onChar(49, arr[49], len);
 		consumer.onChar(50, arr[50], len);
 	}
-	public static final void iter51(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter51(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2307,7 +2276,7 @@ public final class CharsIterator {
 		consumer.onChar(50, arr[50], len);
 		consumer.onChar(51, arr[51], len);
 	}
-	public static final void iter52(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter52(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2362,7 +2331,7 @@ public final class CharsIterator {
 		consumer.onChar(51, arr[51], len);
 		consumer.onChar(52, arr[52], len);
 	}
-	public static final void iter53(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter53(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2418,7 +2387,7 @@ public final class CharsIterator {
 		consumer.onChar(52, arr[52], len);
 		consumer.onChar(53, arr[53], len);
 	}
-	public static final void iter54(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter54(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2475,7 +2444,7 @@ public final class CharsIterator {
 		consumer.onChar(53, arr[53], len);
 		consumer.onChar(54, arr[54], len);
 	}
-	public static final void iter55(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter55(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2533,7 +2502,7 @@ public final class CharsIterator {
 		consumer.onChar(54, arr[54], len);
 		consumer.onChar(55, arr[55], len);
 	}
-	public static final void iter56(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter56(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2592,7 +2561,7 @@ public final class CharsIterator {
 		consumer.onChar(55, arr[55], len);
 		consumer.onChar(56, arr[56], len);
 	}
-	public static final void iter57(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter57(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2652,7 +2621,7 @@ public final class CharsIterator {
 		consumer.onChar(56, arr[56], len);
 		consumer.onChar(57, arr[57], len);
 	}
-	public static final void iter58(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter58(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2713,7 +2682,7 @@ public final class CharsIterator {
 		consumer.onChar(57, arr[57], len);
 		consumer.onChar(58, arr[58], len);
 	}
-	public static final void iter59(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter59(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2775,7 +2744,7 @@ public final class CharsIterator {
 		consumer.onChar(58, arr[58], len);
 		consumer.onChar(59, arr[59], len);
 	}
-	public static final void iter60(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter60(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2838,7 +2807,7 @@ public final class CharsIterator {
 		consumer.onChar(59, arr[59], len);
 		consumer.onChar(60, arr[60], len);
 	}
-	public static final void iter61(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter61(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2902,7 +2871,7 @@ public final class CharsIterator {
 		consumer.onChar(60, arr[60], len);
 		consumer.onChar(61, arr[61], len);
 	}
-	public static final void iter62(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter62(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -2967,7 +2936,7 @@ public final class CharsIterator {
 		consumer.onChar(61, arr[61], len);
 		consumer.onChar(62, arr[62], len);
 	}
-	public static final void iter63(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter63(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3033,7 +3002,7 @@ public final class CharsIterator {
 		consumer.onChar(62, arr[62], len);
 		consumer.onChar(63, arr[63], len);
 	}
-	public static final void iter64(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter64(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3100,7 +3069,7 @@ public final class CharsIterator {
 		consumer.onChar(63, arr[63], len);
 		consumer.onChar(64, arr[64], len);
 	}
-	public static final void iter65(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter65(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3168,7 +3137,7 @@ public final class CharsIterator {
 		consumer.onChar(64, arr[64], len);
 		consumer.onChar(65, arr[65], len);
 	}
-	public static final void iter66(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter66(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3237,7 +3206,7 @@ public final class CharsIterator {
 		consumer.onChar(65, arr[65], len);
 		consumer.onChar(66, arr[66], len);
 	}
-	public static final void iter67(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter67(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3307,7 +3276,7 @@ public final class CharsIterator {
 		consumer.onChar(66, arr[66], len);
 		consumer.onChar(67, arr[67], len);
 	}
-	public static final void iter68(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter68(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3378,7 +3347,7 @@ public final class CharsIterator {
 		consumer.onChar(67, arr[67], len);
 		consumer.onChar(68, arr[68], len);
 	}
-	public static final void iter69(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter69(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3450,7 +3419,7 @@ public final class CharsIterator {
 		consumer.onChar(68, arr[68], len);
 		consumer.onChar(69, arr[69], len);
 	}
-	public static final void iter70(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter70(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3523,7 +3492,7 @@ public final class CharsIterator {
 		consumer.onChar(69, arr[69], len);
 		consumer.onChar(70, arr[70], len);
 	}
-	public static final void iter71(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter71(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3597,7 +3566,7 @@ public final class CharsIterator {
 		consumer.onChar(70, arr[70], len);
 		consumer.onChar(71, arr[71], len);
 	}
-	public static final void iter72(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter72(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3672,7 +3641,7 @@ public final class CharsIterator {
 		consumer.onChar(71, arr[71], len);
 		consumer.onChar(72, arr[72], len);
 	}
-	public static final void iter73(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter73(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3748,7 +3717,7 @@ public final class CharsIterator {
 		consumer.onChar(72, arr[72], len);
 		consumer.onChar(73, arr[73], len);
 	}
-	public static final void iter74(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter74(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3825,7 +3794,7 @@ public final class CharsIterator {
 		consumer.onChar(73, arr[73], len);
 		consumer.onChar(74, arr[74], len);
 	}
-	public static final void iter75(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter75(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3903,7 +3872,7 @@ public final class CharsIterator {
 		consumer.onChar(74, arr[74], len);
 		consumer.onChar(75, arr[75], len);
 	}
-	public static final void iter76(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter76(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -3982,7 +3951,7 @@ public final class CharsIterator {
 		consumer.onChar(75, arr[75], len);
 		consumer.onChar(76, arr[76], len);
 	}
-	public static final void iter77(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter77(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4062,7 +4031,7 @@ public final class CharsIterator {
 		consumer.onChar(76, arr[76], len);
 		consumer.onChar(77, arr[77], len);
 	}
-	public static final void iter78(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter78(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4143,7 +4112,7 @@ public final class CharsIterator {
 		consumer.onChar(77, arr[77], len);
 		consumer.onChar(78, arr[78], len);
 	}
-	public static final void iter79(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter79(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4225,7 +4194,7 @@ public final class CharsIterator {
 		consumer.onChar(78, arr[78], len);
 		consumer.onChar(79, arr[79], len);
 	}
-	public static final void iter80(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter80(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4308,7 +4277,7 @@ public final class CharsIterator {
 		consumer.onChar(79, arr[79], len);
 		consumer.onChar(80, arr[80], len);
 	}
-	public static final void iter81(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter81(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4392,7 +4361,7 @@ public final class CharsIterator {
 		consumer.onChar(80, arr[80], len);
 		consumer.onChar(81, arr[81], len);
 	}
-	public static final void iter82(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter82(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4477,7 +4446,7 @@ public final class CharsIterator {
 		consumer.onChar(81, arr[81], len);
 		consumer.onChar(82, arr[82], len);
 	}
-	public static final void iter83(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter83(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4563,7 +4532,7 @@ public final class CharsIterator {
 		consumer.onChar(82, arr[82], len);
 		consumer.onChar(83, arr[83], len);
 	}
-	public static final void iter84(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter84(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4650,7 +4619,7 @@ public final class CharsIterator {
 		consumer.onChar(83, arr[83], len);
 		consumer.onChar(84, arr[84], len);
 	}
-	public static final void iter85(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter85(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4738,7 +4707,7 @@ public final class CharsIterator {
 		consumer.onChar(84, arr[84], len);
 		consumer.onChar(85, arr[85], len);
 	}
-	public static final void iter86(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter86(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4827,7 +4796,7 @@ public final class CharsIterator {
 		consumer.onChar(85, arr[85], len);
 		consumer.onChar(86, arr[86], len);
 	}
-	public static final void iter87(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter87(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -4917,7 +4886,7 @@ public final class CharsIterator {
 		consumer.onChar(86, arr[86], len);
 		consumer.onChar(87, arr[87], len);
 	}
-	public static final void iter88(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter88(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5008,7 +4977,7 @@ public final class CharsIterator {
 		consumer.onChar(87, arr[87], len);
 		consumer.onChar(88, arr[88], len);
 	}
-	public static final void iter89(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter89(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5100,7 +5069,7 @@ public final class CharsIterator {
 		consumer.onChar(88, arr[88], len);
 		consumer.onChar(89, arr[89], len);
 	}
-	public static final void iter90(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter90(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5193,7 +5162,7 @@ public final class CharsIterator {
 		consumer.onChar(89, arr[89], len);
 		consumer.onChar(90, arr[90], len);
 	}
-	public static final void iter91(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter91(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5287,7 +5256,7 @@ public final class CharsIterator {
 		consumer.onChar(90, arr[90], len);
 		consumer.onChar(91, arr[91], len);
 	}
-	public static final void iter92(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter92(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5382,7 +5351,7 @@ public final class CharsIterator {
 		consumer.onChar(91, arr[91], len);
 		consumer.onChar(92, arr[92], len);
 	}
-	public static final void iter93(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter93(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5478,7 +5447,7 @@ public final class CharsIterator {
 		consumer.onChar(92, arr[92], len);
 		consumer.onChar(93, arr[93], len);
 	}
-	public static final void iter94(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter94(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5575,7 +5544,7 @@ public final class CharsIterator {
 		consumer.onChar(93, arr[93], len);
 		consumer.onChar(94, arr[94], len);
 	}
-	public static final void iter95(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter95(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5673,7 +5642,7 @@ public final class CharsIterator {
 		consumer.onChar(94, arr[94], len);
 		consumer.onChar(95, arr[95], len);
 	}
-	public static final void iter96(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter96(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5772,7 +5741,7 @@ public final class CharsIterator {
 		consumer.onChar(95, arr[95], len);
 		consumer.onChar(96, arr[96], len);
 	}
-	public static final void iter97(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter97(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5872,7 +5841,7 @@ public final class CharsIterator {
 		consumer.onChar(96, arr[96], len);
 		consumer.onChar(97, arr[97], len);
 	}
-	public static final void iter98(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter98(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -5973,7 +5942,7 @@ public final class CharsIterator {
 		consumer.onChar(97, arr[97], len);
 		consumer.onChar(98, arr[98], len);
 	}
-	public static final void iter99(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter99(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6075,7 +6044,7 @@ public final class CharsIterator {
 		consumer.onChar(98, arr[98], len);
 		consumer.onChar(99, arr[99], len);
 	}
-	public static final void iter100(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter100(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6178,7 +6147,7 @@ public final class CharsIterator {
 		consumer.onChar(99, arr[99], len);
 		consumer.onChar(100, arr[100], len);
 	}
-	public static final void iter101(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter101(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6282,7 +6251,7 @@ public final class CharsIterator {
 		consumer.onChar(100, arr[100], len);
 		consumer.onChar(101, arr[101], len);
 	}
-	public static final void iter102(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter102(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6387,7 +6356,7 @@ public final class CharsIterator {
 		consumer.onChar(101, arr[101], len);
 		consumer.onChar(102, arr[102], len);
 	}
-	public static final void iter103(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter103(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6493,7 +6462,7 @@ public final class CharsIterator {
 		consumer.onChar(102, arr[102], len);
 		consumer.onChar(103, arr[103], len);
 	}
-	public static final void iter104(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter104(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6600,7 +6569,7 @@ public final class CharsIterator {
 		consumer.onChar(103, arr[103], len);
 		consumer.onChar(104, arr[104], len);
 	}
-	public static final void iter105(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter105(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6708,7 +6677,7 @@ public final class CharsIterator {
 		consumer.onChar(104, arr[104], len);
 		consumer.onChar(105, arr[105], len);
 	}
-	public static final void iter106(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter106(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6817,7 +6786,7 @@ public final class CharsIterator {
 		consumer.onChar(105, arr[105], len);
 		consumer.onChar(106, arr[106], len);
 	}
-	public static final void iter107(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter107(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -6927,7 +6896,7 @@ public final class CharsIterator {
 		consumer.onChar(106, arr[106], len);
 		consumer.onChar(107, arr[107], len);
 	}
-	public static final void iter108(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter108(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7038,7 +7007,7 @@ public final class CharsIterator {
 		consumer.onChar(107, arr[107], len);
 		consumer.onChar(108, arr[108], len);
 	}
-	public static final void iter109(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter109(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7150,7 +7119,7 @@ public final class CharsIterator {
 		consumer.onChar(108, arr[108], len);
 		consumer.onChar(109, arr[109], len);
 	}
-	public static final void iter110(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter110(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7263,7 +7232,7 @@ public final class CharsIterator {
 		consumer.onChar(109, arr[109], len);
 		consumer.onChar(110, arr[110], len);
 	}
-	public static final void iter111(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter111(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7377,7 +7346,7 @@ public final class CharsIterator {
 		consumer.onChar(110, arr[110], len);
 		consumer.onChar(111, arr[111], len);
 	}
-	public static final void iter112(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter112(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7492,7 +7461,7 @@ public final class CharsIterator {
 		consumer.onChar(111, arr[111], len);
 		consumer.onChar(112, arr[112], len);
 	}
-	public static final void iter113(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter113(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7608,7 +7577,7 @@ public final class CharsIterator {
 		consumer.onChar(112, arr[112], len);
 		consumer.onChar(113, arr[113], len);
 	}
-	public static final void iter114(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter114(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7725,7 +7694,7 @@ public final class CharsIterator {
 		consumer.onChar(113, arr[113], len);
 		consumer.onChar(114, arr[114], len);
 	}
-	public static final void iter115(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter115(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7843,7 +7812,7 @@ public final class CharsIterator {
 		consumer.onChar(114, arr[114], len);
 		consumer.onChar(115, arr[115], len);
 	}
-	public static final void iter116(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter116(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -7962,7 +7931,7 @@ public final class CharsIterator {
 		consumer.onChar(115, arr[115], len);
 		consumer.onChar(116, arr[116], len);
 	}
-	public static final void iter117(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter117(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8082,7 +8051,7 @@ public final class CharsIterator {
 		consumer.onChar(116, arr[116], len);
 		consumer.onChar(117, arr[117], len);
 	}
-	public static final void iter118(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter118(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8203,7 +8172,7 @@ public final class CharsIterator {
 		consumer.onChar(117, arr[117], len);
 		consumer.onChar(118, arr[118], len);
 	}
-	public static final void iter119(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter119(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8325,7 +8294,7 @@ public final class CharsIterator {
 		consumer.onChar(118, arr[118], len);
 		consumer.onChar(119, arr[119], len);
 	}
-	public static final void iter120(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter120(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8448,7 +8417,7 @@ public final class CharsIterator {
 		consumer.onChar(119, arr[119], len);
 		consumer.onChar(120, arr[120], len);
 	}
-	public static final void iter121(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter121(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8572,7 +8541,7 @@ public final class CharsIterator {
 		consumer.onChar(120, arr[120], len);
 		consumer.onChar(121, arr[121], len);
 	}
-	public static final void iter122(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter122(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8697,7 +8666,7 @@ public final class CharsIterator {
 		consumer.onChar(121, arr[121], len);
 		consumer.onChar(122, arr[122], len);
 	}
-	public static final void iter123(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter123(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8823,7 +8792,7 @@ public final class CharsIterator {
 		consumer.onChar(122, arr[122], len);
 		consumer.onChar(123, arr[123], len);
 	}
-	public static final void iter124(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter124(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -8950,7 +8919,7 @@ public final class CharsIterator {
 		consumer.onChar(123, arr[123], len);
 		consumer.onChar(124, arr[124], len);
 	}
-	public static final void iter125(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter125(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -9078,7 +9047,7 @@ public final class CharsIterator {
 		consumer.onChar(124, arr[124], len);
 		consumer.onChar(125, arr[125], len);
 	}
-	public static final void iter126(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter126(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -9207,7 +9176,7 @@ public final class CharsIterator {
 		consumer.onChar(125, arr[125], len);
 		consumer.onChar(126, arr[126], len);
 	}
-	public static final void iter127(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter127(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -9337,7 +9306,7 @@ public final class CharsIterator {
 		consumer.onChar(126, arr[126], len);
 		consumer.onChar(127, arr[127], len);
 	}
-	public static final void iter128(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter128(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -9468,7 +9437,7 @@ public final class CharsIterator {
 		consumer.onChar(127, arr[127], len);
 		consumer.onChar(128, arr[128], len);
 	}
-	public static final void iter129(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter129(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -9600,7 +9569,7 @@ public final class CharsIterator {
 		consumer.onChar(128, arr[128], len);
 		consumer.onChar(129, arr[129], len);
 	}
-	public static final void iter130(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter130(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -9733,7 +9702,7 @@ public final class CharsIterator {
 		consumer.onChar(129, arr[129], len);
 		consumer.onChar(130, arr[130], len);
 	}
-	public static final void iter131(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter131(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -9867,7 +9836,7 @@ public final class CharsIterator {
 		consumer.onChar(130, arr[130], len);
 		consumer.onChar(131, arr[131], len);
 	}
-	public static final void iter132(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter132(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10002,7 +9971,7 @@ public final class CharsIterator {
 		consumer.onChar(131, arr[131], len);
 		consumer.onChar(132, arr[132], len);
 	}
-	public static final void iter133(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter133(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10138,7 +10107,7 @@ public final class CharsIterator {
 		consumer.onChar(132, arr[132], len);
 		consumer.onChar(133, arr[133], len);
 	}
-	public static final void iter134(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter134(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10275,7 +10244,7 @@ public final class CharsIterator {
 		consumer.onChar(133, arr[133], len);
 		consumer.onChar(134, arr[134], len);
 	}
-	public static final void iter135(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter135(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10413,7 +10382,7 @@ public final class CharsIterator {
 		consumer.onChar(134, arr[134], len);
 		consumer.onChar(135, arr[135], len);
 	}
-	public static final void iter136(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter136(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10552,7 +10521,7 @@ public final class CharsIterator {
 		consumer.onChar(135, arr[135], len);
 		consumer.onChar(136, arr[136], len);
 	}
-	public static final void iter137(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter137(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10692,7 +10661,7 @@ public final class CharsIterator {
 		consumer.onChar(136, arr[136], len);
 		consumer.onChar(137, arr[137], len);
 	}
-	public static final void iter138(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter138(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10833,7 +10802,7 @@ public final class CharsIterator {
 		consumer.onChar(137, arr[137], len);
 		consumer.onChar(138, arr[138], len);
 	}
-	public static final void iter139(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter139(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -10975,7 +10944,7 @@ public final class CharsIterator {
 		consumer.onChar(138, arr[138], len);
 		consumer.onChar(139, arr[139], len);
 	}
-	public static final void iter140(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter140(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -11118,7 +11087,7 @@ public final class CharsIterator {
 		consumer.onChar(139, arr[139], len);
 		consumer.onChar(140, arr[140], len);
 	}
-	public static final void iter141(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter141(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -11262,7 +11231,7 @@ public final class CharsIterator {
 		consumer.onChar(140, arr[140], len);
 		consumer.onChar(141, arr[141], len);
 	}
-	public static final void iter142(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter142(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -11407,7 +11376,7 @@ public final class CharsIterator {
 		consumer.onChar(141, arr[141], len);
 		consumer.onChar(142, arr[142], len);
 	}
-	public static final void iter143(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter143(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -11553,7 +11522,7 @@ public final class CharsIterator {
 		consumer.onChar(142, arr[142], len);
 		consumer.onChar(143, arr[143], len);
 	}
-	public static final void iter144(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter144(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -11700,7 +11669,7 @@ public final class CharsIterator {
 		consumer.onChar(143, arr[143], len);
 		consumer.onChar(144, arr[144], len);
 	}
-	public static final void iter145(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter145(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -11848,7 +11817,7 @@ public final class CharsIterator {
 		consumer.onChar(144, arr[144], len);
 		consumer.onChar(145, arr[145], len);
 	}
-	public static final void iter146(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter146(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -11997,7 +11966,7 @@ public final class CharsIterator {
 		consumer.onChar(145, arr[145], len);
 		consumer.onChar(146, arr[146], len);
 	}
-	public static final void iter147(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter147(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -12147,7 +12116,7 @@ public final class CharsIterator {
 		consumer.onChar(146, arr[146], len);
 		consumer.onChar(147, arr[147], len);
 	}
-	public static final void iter148(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter148(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -12298,7 +12267,7 @@ public final class CharsIterator {
 		consumer.onChar(147, arr[147], len);
 		consumer.onChar(148, arr[148], len);
 	}
-	public static final void iter149(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter149(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -12450,7 +12419,7 @@ public final class CharsIterator {
 		consumer.onChar(148, arr[148], len);
 		consumer.onChar(149, arr[149], len);
 	}
-	public static final void iter150(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter150(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -12603,7 +12572,7 @@ public final class CharsIterator {
 		consumer.onChar(149, arr[149], len);
 		consumer.onChar(150, arr[150], len);
 	}
-	public static final void iter151(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter151(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -12757,7 +12726,7 @@ public final class CharsIterator {
 		consumer.onChar(150, arr[150], len);
 		consumer.onChar(151, arr[151], len);
 	}
-	public static final void iter152(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter152(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -12912,7 +12881,7 @@ public final class CharsIterator {
 		consumer.onChar(151, arr[151], len);
 		consumer.onChar(152, arr[152], len);
 	}
-	public static final void iter153(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter153(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -13068,7 +13037,7 @@ public final class CharsIterator {
 		consumer.onChar(152, arr[152], len);
 		consumer.onChar(153, arr[153], len);
 	}
-	public static final void iter154(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter154(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -13225,7 +13194,7 @@ public final class CharsIterator {
 		consumer.onChar(153, arr[153], len);
 		consumer.onChar(154, arr[154], len);
 	}
-	public static final void iter155(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter155(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -13383,7 +13352,7 @@ public final class CharsIterator {
 		consumer.onChar(154, arr[154], len);
 		consumer.onChar(155, arr[155], len);
 	}
-	public static final void iter156(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter156(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -13542,7 +13511,7 @@ public final class CharsIterator {
 		consumer.onChar(155, arr[155], len);
 		consumer.onChar(156, arr[156], len);
 	}
-	public static final void iter157(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter157(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -13702,7 +13671,7 @@ public final class CharsIterator {
 		consumer.onChar(156, arr[156], len);
 		consumer.onChar(157, arr[157], len);
 	}
-	public static final void iter158(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter158(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -13863,7 +13832,7 @@ public final class CharsIterator {
 		consumer.onChar(157, arr[157], len);
 		consumer.onChar(158, arr[158], len);
 	}
-	public static final void iter159(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter159(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -14025,7 +13994,7 @@ public final class CharsIterator {
 		consumer.onChar(158, arr[158], len);
 		consumer.onChar(159, arr[159], len);
 	}
-	public static final void iter160(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter160(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -14188,7 +14157,7 @@ public final class CharsIterator {
 		consumer.onChar(159, arr[159], len);
 		consumer.onChar(160, arr[160], len);
 	}
-	public static final void iter161(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter161(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -14352,7 +14321,7 @@ public final class CharsIterator {
 		consumer.onChar(160, arr[160], len);
 		consumer.onChar(161, arr[161], len);
 	}
-	public static final void iter162(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter162(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -14517,7 +14486,7 @@ public final class CharsIterator {
 		consumer.onChar(161, arr[161], len);
 		consumer.onChar(162, arr[162], len);
 	}
-	public static final void iter163(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter163(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -14683,7 +14652,7 @@ public final class CharsIterator {
 		consumer.onChar(162, arr[162], len);
 		consumer.onChar(163, arr[163], len);
 	}
-	public static final void iter164(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter164(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -14850,7 +14819,7 @@ public final class CharsIterator {
 		consumer.onChar(163, arr[163], len);
 		consumer.onChar(164, arr[164], len);
 	}
-	public static final void iter165(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter165(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -15018,7 +14987,7 @@ public final class CharsIterator {
 		consumer.onChar(164, arr[164], len);
 		consumer.onChar(165, arr[165], len);
 	}
-	public static final void iter166(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter166(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -15187,7 +15156,7 @@ public final class CharsIterator {
 		consumer.onChar(165, arr[165], len);
 		consumer.onChar(166, arr[166], len);
 	}
-	public static final void iter167(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter167(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -15357,7 +15326,7 @@ public final class CharsIterator {
 		consumer.onChar(166, arr[166], len);
 		consumer.onChar(167, arr[167], len);
 	}
-	public static final void iter168(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter168(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -15528,7 +15497,7 @@ public final class CharsIterator {
 		consumer.onChar(167, arr[167], len);
 		consumer.onChar(168, arr[168], len);
 	}
-	public static final void iter169(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter169(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -15700,7 +15669,7 @@ public final class CharsIterator {
 		consumer.onChar(168, arr[168], len);
 		consumer.onChar(169, arr[169], len);
 	}
-	public static final void iter170(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter170(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -15873,7 +15842,7 @@ public final class CharsIterator {
 		consumer.onChar(169, arr[169], len);
 		consumer.onChar(170, arr[170], len);
 	}
-	public static final void iter171(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter171(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -16047,7 +16016,7 @@ public final class CharsIterator {
 		consumer.onChar(170, arr[170], len);
 		consumer.onChar(171, arr[171], len);
 	}
-	public static final void iter172(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter172(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -16222,7 +16191,7 @@ public final class CharsIterator {
 		consumer.onChar(171, arr[171], len);
 		consumer.onChar(172, arr[172], len);
 	}
-	public static final void iter173(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter173(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -16398,7 +16367,7 @@ public final class CharsIterator {
 		consumer.onChar(172, arr[172], len);
 		consumer.onChar(173, arr[173], len);
 	}
-	public static final void iter174(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter174(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -16575,7 +16544,7 @@ public final class CharsIterator {
 		consumer.onChar(173, arr[173], len);
 		consumer.onChar(174, arr[174], len);
 	}
-	public static final void iter175(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter175(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -16753,7 +16722,7 @@ public final class CharsIterator {
 		consumer.onChar(174, arr[174], len);
 		consumer.onChar(175, arr[175], len);
 	}
-	public static final void iter176(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter176(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -16932,7 +16901,7 @@ public final class CharsIterator {
 		consumer.onChar(175, arr[175], len);
 		consumer.onChar(176, arr[176], len);
 	}
-	public static final void iter177(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter177(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -17112,7 +17081,7 @@ public final class CharsIterator {
 		consumer.onChar(176, arr[176], len);
 		consumer.onChar(177, arr[177], len);
 	}
-	public static final void iter178(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter178(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -17293,7 +17262,7 @@ public final class CharsIterator {
 		consumer.onChar(177, arr[177], len);
 		consumer.onChar(178, arr[178], len);
 	}
-	public static final void iter179(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter179(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -17475,7 +17444,7 @@ public final class CharsIterator {
 		consumer.onChar(178, arr[178], len);
 		consumer.onChar(179, arr[179], len);
 	}
-	public static final void iter180(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter180(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -17658,7 +17627,7 @@ public final class CharsIterator {
 		consumer.onChar(179, arr[179], len);
 		consumer.onChar(180, arr[180], len);
 	}
-	public static final void iter181(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter181(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -17842,7 +17811,7 @@ public final class CharsIterator {
 		consumer.onChar(180, arr[180], len);
 		consumer.onChar(181, arr[181], len);
 	}
-	public static final void iter182(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter182(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -18027,7 +17996,7 @@ public final class CharsIterator {
 		consumer.onChar(181, arr[181], len);
 		consumer.onChar(182, arr[182], len);
 	}
-	public static final void iter183(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter183(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -18213,7 +18182,7 @@ public final class CharsIterator {
 		consumer.onChar(182, arr[182], len);
 		consumer.onChar(183, arr[183], len);
 	}
-	public static final void iter184(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter184(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -18400,7 +18369,7 @@ public final class CharsIterator {
 		consumer.onChar(183, arr[183], len);
 		consumer.onChar(184, arr[184], len);
 	}
-	public static final void iter185(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter185(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -18588,7 +18557,7 @@ public final class CharsIterator {
 		consumer.onChar(184, arr[184], len);
 		consumer.onChar(185, arr[185], len);
 	}
-	public static final void iter186(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter186(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -18777,7 +18746,7 @@ public final class CharsIterator {
 		consumer.onChar(185, arr[185], len);
 		consumer.onChar(186, arr[186], len);
 	}
-	public static final void iter187(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter187(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -18967,7 +18936,7 @@ public final class CharsIterator {
 		consumer.onChar(186, arr[186], len);
 		consumer.onChar(187, arr[187], len);
 	}
-	public static final void iter188(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter188(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -19158,7 +19127,7 @@ public final class CharsIterator {
 		consumer.onChar(187, arr[187], len);
 		consumer.onChar(188, arr[188], len);
 	}
-	public static final void iter189(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter189(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -19350,7 +19319,7 @@ public final class CharsIterator {
 		consumer.onChar(188, arr[188], len);
 		consumer.onChar(189, arr[189], len);
 	}
-	public static final void iter190(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter190(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -19543,7 +19512,7 @@ public final class CharsIterator {
 		consumer.onChar(189, arr[189], len);
 		consumer.onChar(190, arr[190], len);
 	}
-	public static final void iter191(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter191(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -19737,7 +19706,7 @@ public final class CharsIterator {
 		consumer.onChar(190, arr[190], len);
 		consumer.onChar(191, arr[191], len);
 	}
-	public static final void iter192(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter192(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -19932,7 +19901,7 @@ public final class CharsIterator {
 		consumer.onChar(191, arr[191], len);
 		consumer.onChar(192, arr[192], len);
 	}
-	public static final void iter193(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter193(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -20128,7 +20097,7 @@ public final class CharsIterator {
 		consumer.onChar(192, arr[192], len);
 		consumer.onChar(193, arr[193], len);
 	}
-	public static final void iter194(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter194(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -20325,7 +20294,7 @@ public final class CharsIterator {
 		consumer.onChar(193, arr[193], len);
 		consumer.onChar(194, arr[194], len);
 	}
-	public static final void iter195(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter195(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -20523,7 +20492,7 @@ public final class CharsIterator {
 		consumer.onChar(194, arr[194], len);
 		consumer.onChar(195, arr[195], len);
 	}
-	public static final void iter196(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter196(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -20722,7 +20691,7 @@ public final class CharsIterator {
 		consumer.onChar(195, arr[195], len);
 		consumer.onChar(196, arr[196], len);
 	}
-	public static final void iter197(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter197(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -20922,7 +20891,7 @@ public final class CharsIterator {
 		consumer.onChar(196, arr[196], len);
 		consumer.onChar(197, arr[197], len);
 	}
-	public static final void iter198(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter198(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -21123,7 +21092,7 @@ public final class CharsIterator {
 		consumer.onChar(197, arr[197], len);
 		consumer.onChar(198, arr[198], len);
 	}
-	public static final void iter199(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter199(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -21325,7 +21294,7 @@ public final class CharsIterator {
 		consumer.onChar(198, arr[198], len);
 		consumer.onChar(199, arr[199], len);
 	}
-	public static final void iter200(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter200(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -21528,7 +21497,7 @@ public final class CharsIterator {
 		consumer.onChar(199, arr[199], len);
 		consumer.onChar(200, arr[200], len);
 	}
-	public static final void iter201(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter201(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -21732,7 +21701,7 @@ public final class CharsIterator {
 		consumer.onChar(200, arr[200], len);
 		consumer.onChar(201, arr[201], len);
 	}
-	public static final void iter202(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter202(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -21937,7 +21906,7 @@ public final class CharsIterator {
 		consumer.onChar(201, arr[201], len);
 		consumer.onChar(202, arr[202], len);
 	}
-	public static final void iter203(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter203(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -22143,7 +22112,7 @@ public final class CharsIterator {
 		consumer.onChar(202, arr[202], len);
 		consumer.onChar(203, arr[203], len);
 	}
-	public static final void iter204(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter204(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -22350,7 +22319,7 @@ public final class CharsIterator {
 		consumer.onChar(203, arr[203], len);
 		consumer.onChar(204, arr[204], len);
 	}
-	public static final void iter205(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter205(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -22558,7 +22527,7 @@ public final class CharsIterator {
 		consumer.onChar(204, arr[204], len);
 		consumer.onChar(205, arr[205], len);
 	}
-	public static final void iter206(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter206(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -22767,7 +22736,7 @@ public final class CharsIterator {
 		consumer.onChar(205, arr[205], len);
 		consumer.onChar(206, arr[206], len);
 	}
-	public static final void iter207(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter207(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -22977,7 +22946,7 @@ public final class CharsIterator {
 		consumer.onChar(206, arr[206], len);
 		consumer.onChar(207, arr[207], len);
 	}
-	public static final void iter208(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter208(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -23188,7 +23157,7 @@ public final class CharsIterator {
 		consumer.onChar(207, arr[207], len);
 		consumer.onChar(208, arr[208], len);
 	}
-	public static final void iter209(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter209(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -23400,7 +23369,7 @@ public final class CharsIterator {
 		consumer.onChar(208, arr[208], len);
 		consumer.onChar(209, arr[209], len);
 	}
-	public static final void iter210(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter210(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -23613,7 +23582,7 @@ public final class CharsIterator {
 		consumer.onChar(209, arr[209], len);
 		consumer.onChar(210, arr[210], len);
 	}
-	public static final void iter211(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter211(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -23827,7 +23796,7 @@ public final class CharsIterator {
 		consumer.onChar(210, arr[210], len);
 		consumer.onChar(211, arr[211], len);
 	}
-	public static final void iter212(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter212(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -24042,7 +24011,7 @@ public final class CharsIterator {
 		consumer.onChar(211, arr[211], len);
 		consumer.onChar(212, arr[212], len);
 	}
-	public static final void iter213(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter213(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -24258,7 +24227,7 @@ public final class CharsIterator {
 		consumer.onChar(212, arr[212], len);
 		consumer.onChar(213, arr[213], len);
 	}
-	public static final void iter214(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter214(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -24475,7 +24444,7 @@ public final class CharsIterator {
 		consumer.onChar(213, arr[213], len);
 		consumer.onChar(214, arr[214], len);
 	}
-	public static final void iter215(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter215(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -24693,7 +24662,7 @@ public final class CharsIterator {
 		consumer.onChar(214, arr[214], len);
 		consumer.onChar(215, arr[215], len);
 	}
-	public static final void iter216(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter216(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -24912,7 +24881,7 @@ public final class CharsIterator {
 		consumer.onChar(215, arr[215], len);
 		consumer.onChar(216, arr[216], len);
 	}
-	public static final void iter217(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter217(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -25132,7 +25101,7 @@ public final class CharsIterator {
 		consumer.onChar(216, arr[216], len);
 		consumer.onChar(217, arr[217], len);
 	}
-	public static final void iter218(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter218(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -25353,7 +25322,7 @@ public final class CharsIterator {
 		consumer.onChar(217, arr[217], len);
 		consumer.onChar(218, arr[218], len);
 	}
-	public static final void iter219(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter219(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -25575,7 +25544,7 @@ public final class CharsIterator {
 		consumer.onChar(218, arr[218], len);
 		consumer.onChar(219, arr[219], len);
 	}
-	public static final void iter220(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter220(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -25798,7 +25767,7 @@ public final class CharsIterator {
 		consumer.onChar(219, arr[219], len);
 		consumer.onChar(220, arr[220], len);
 	}
-	public static final void iter221(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter221(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -26022,7 +25991,7 @@ public final class CharsIterator {
 		consumer.onChar(220, arr[220], len);
 		consumer.onChar(221, arr[221], len);
 	}
-	public static final void iter222(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter222(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -26247,7 +26216,7 @@ public final class CharsIterator {
 		consumer.onChar(221, arr[221], len);
 		consumer.onChar(222, arr[222], len);
 	}
-	public static final void iter223(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter223(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -26473,7 +26442,7 @@ public final class CharsIterator {
 		consumer.onChar(222, arr[222], len);
 		consumer.onChar(223, arr[223], len);
 	}
-	public static final void iter224(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter224(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -26700,7 +26669,7 @@ public final class CharsIterator {
 		consumer.onChar(223, arr[223], len);
 		consumer.onChar(224, arr[224], len);
 	}
-	public static final void iter225(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter225(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -26928,7 +26897,7 @@ public final class CharsIterator {
 		consumer.onChar(224, arr[224], len);
 		consumer.onChar(225, arr[225], len);
 	}
-	public static final void iter226(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter226(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -27157,7 +27126,7 @@ public final class CharsIterator {
 		consumer.onChar(225, arr[225], len);
 		consumer.onChar(226, arr[226], len);
 	}
-	public static final void iter227(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter227(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -27387,7 +27356,7 @@ public final class CharsIterator {
 		consumer.onChar(226, arr[226], len);
 		consumer.onChar(227, arr[227], len);
 	}
-	public static final void iter228(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter228(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -27618,7 +27587,7 @@ public final class CharsIterator {
 		consumer.onChar(227, arr[227], len);
 		consumer.onChar(228, arr[228], len);
 	}
-	public static final void iter229(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter229(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -27850,7 +27819,7 @@ public final class CharsIterator {
 		consumer.onChar(228, arr[228], len);
 		consumer.onChar(229, arr[229], len);
 	}
-	public static final void iter230(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter230(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -28083,7 +28052,7 @@ public final class CharsIterator {
 		consumer.onChar(229, arr[229], len);
 		consumer.onChar(230, arr[230], len);
 	}
-	public static final void iter231(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter231(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -28317,7 +28286,7 @@ public final class CharsIterator {
 		consumer.onChar(230, arr[230], len);
 		consumer.onChar(231, arr[231], len);
 	}
-	public static final void iter232(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter232(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -28552,7 +28521,7 @@ public final class CharsIterator {
 		consumer.onChar(231, arr[231], len);
 		consumer.onChar(232, arr[232], len);
 	}
-	public static final void iter233(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter233(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -28788,7 +28757,7 @@ public final class CharsIterator {
 		consumer.onChar(232, arr[232], len);
 		consumer.onChar(233, arr[233], len);
 	}
-	public static final void iter234(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter234(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -29025,7 +28994,7 @@ public final class CharsIterator {
 		consumer.onChar(233, arr[233], len);
 		consumer.onChar(234, arr[234], len);
 	}
-	public static final void iter235(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter235(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -29263,7 +29232,7 @@ public final class CharsIterator {
 		consumer.onChar(234, arr[234], len);
 		consumer.onChar(235, arr[235], len);
 	}
-	public static final void iter236(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter236(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -29502,7 +29471,7 @@ public final class CharsIterator {
 		consumer.onChar(235, arr[235], len);
 		consumer.onChar(236, arr[236], len);
 	}
-	public static final void iter237(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter237(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -29742,7 +29711,7 @@ public final class CharsIterator {
 		consumer.onChar(236, arr[236], len);
 		consumer.onChar(237, arr[237], len);
 	}
-	public static final void iter238(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter238(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -29983,7 +29952,7 @@ public final class CharsIterator {
 		consumer.onChar(237, arr[237], len);
 		consumer.onChar(238, arr[238], len);
 	}
-	public static final void iter239(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter239(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -30225,7 +30194,7 @@ public final class CharsIterator {
 		consumer.onChar(238, arr[238], len);
 		consumer.onChar(239, arr[239], len);
 	}
-	public static final void iter240(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter240(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -30468,7 +30437,7 @@ public final class CharsIterator {
 		consumer.onChar(239, arr[239], len);
 		consumer.onChar(240, arr[240], len);
 	}
-	public static final void iter241(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter241(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -30712,7 +30681,7 @@ public final class CharsIterator {
 		consumer.onChar(240, arr[240], len);
 		consumer.onChar(241, arr[241], len);
 	}
-	public static final void iter242(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter242(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -30957,7 +30926,7 @@ public final class CharsIterator {
 		consumer.onChar(241, arr[241], len);
 		consumer.onChar(242, arr[242], len);
 	}
-	public static final void iter243(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter243(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -31203,7 +31172,7 @@ public final class CharsIterator {
 		consumer.onChar(242, arr[242], len);
 		consumer.onChar(243, arr[243], len);
 	}
-	public static final void iter244(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter244(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -31450,7 +31419,7 @@ public final class CharsIterator {
 		consumer.onChar(243, arr[243], len);
 		consumer.onChar(244, arr[244], len);
 	}
-	public static final void iter245(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter245(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -31698,7 +31667,7 @@ public final class CharsIterator {
 		consumer.onChar(244, arr[244], len);
 		consumer.onChar(245, arr[245], len);
 	}
-	public static final void iter246(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter246(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -31947,7 +31916,7 @@ public final class CharsIterator {
 		consumer.onChar(245, arr[245], len);
 		consumer.onChar(246, arr[246], len);
 	}
-	public static final void iter247(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter247(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -32197,7 +32166,7 @@ public final class CharsIterator {
 		consumer.onChar(246, arr[246], len);
 		consumer.onChar(247, arr[247], len);
 	}
-	public static final void iter248(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter248(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -32448,7 +32417,7 @@ public final class CharsIterator {
 		consumer.onChar(247, arr[247], len);
 		consumer.onChar(248, arr[248], len);
 	}
-	public static final void iter249(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter249(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -32700,7 +32669,7 @@ public final class CharsIterator {
 		consumer.onChar(248, arr[248], len);
 		consumer.onChar(249, arr[249], len);
 	}
-	public static final void iter250(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter250(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -32953,7 +32922,7 @@ public final class CharsIterator {
 		consumer.onChar(249, arr[249], len);
 		consumer.onChar(250, arr[250], len);
 	}
-	public static final void iter251(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter251(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -33207,7 +33176,7 @@ public final class CharsIterator {
 		consumer.onChar(250, arr[250], len);
 		consumer.onChar(251, arr[251], len);
 	}
-	public static final void iter252(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter252(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -33462,7 +33431,7 @@ public final class CharsIterator {
 		consumer.onChar(251, arr[251], len);
 		consumer.onChar(252, arr[252], len);
 	}
-	public static final void iter253(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter253(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);
@@ -33718,7 +33687,7 @@ public final class CharsIterator {
 		consumer.onChar(252, arr[252], len);
 		consumer.onChar(253, arr[253], len);
 	}
-	public static final void iter254(final char[] arr, final CharConsumer consumer, final int len){
+	private static final void iter254(final char[] arr, final CharConsumer consumer, final int len){
 		consumer.onChar(0, arr[0], len);
 		consumer.onChar(1, arr[1], len);
 		consumer.onChar(2, arr[2], len);

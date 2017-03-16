@@ -11,20 +11,21 @@ public final class Splitter {
 	 */
 	public static final String[] split(final String input, final char on){
 		final ArrayList<String> result = new ArrayList<String>();
-		StringBuilder sb = new StringBuilder();
-		final char[] arr = input.toCharArray();
-		for (int i = 0; i < arr.length; i++) {
-			final char ch = arr[i];
-			if (ch == on){
-				if (sb.length() > 0)
-					result.add(sb.toString());
+		final StringBuilder[] sb = new StringBuilder[]{new StringBuilder(128)};
+		CharsIterator.iterate(input, new CharsIterator.CharConsumer() {
+			@Override
+			public final void onChar(final int index, final char ch, final int length) {
+				if (ch == on){
+					if (sb[0].length() > 0)
+						result.add(sb[0].toString());
 
-				sb = new StringBuilder();
-			}else
-				sb.append(ch);
-		}
-		if (sb.length() > 0)
-			result.add(sb.toString());
+					sb[0] = new StringBuilder(128);
+				}else
+					sb[0].append(ch);
+			}
+		});
+		if (sb[0].length() > 0)
+			result.add(sb[0].toString());
 
 		return result.toArray(new String[result.size()]);
 	}
@@ -38,17 +39,18 @@ public final class Splitter {
 	 */
 	public static final String[] splitIncludeEmpty(final String input, final char on){
 		final ArrayList<String> result = new ArrayList<String>();
-		StringBuilder sb = new StringBuilder();
-		final char[] arr = input.toCharArray();
-		for (int i = 0; i < arr.length; i++) {
-			final char ch = arr[i];
-			if (ch == on){
-				result.add(sb.toString());
-				sb = new StringBuilder();
-			}else
-				sb.append(ch);
-		}
-		result.add(sb.toString());
+		final StringBuilder[] sb = new StringBuilder[]{new StringBuilder(128)};
+		CharsIterator.iterate(input, new CharsIterator.CharConsumer() {
+			@Override
+			public final void onChar(final int index, final char ch, final int length) {
+				if (ch == on){
+					result.add(sb[0].toString());
+					sb[0] = new StringBuilder(128);
+				}else
+					sb[0].append(ch);
+			}
+		});
+		result.add(sb[0].toString());
 		return result.toArray(new String[result.size()]);
 	}
 
@@ -61,37 +63,37 @@ public final class Splitter {
 	 */
 	public static final String[] split(final String input, final char on, final char[] escapeCharacters){
 		final ArrayList<String> result = new ArrayList<String>();
-		StringBuilder sb = new StringBuilder();
-		final char[] arr = input.toCharArray();
-		int escapePointer = 0;
-		for (int i = 0; i < arr.length; i++) {
-			final char ch = arr[i];
-			switch(escapePointer){
-			case 0:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer++;
-					sb.append(ch);
-				}else{
-					if (ch == on){
-						if (sb.length() > 0)
-							result.add(sb.toString());
-						sb = new StringBuilder();
+		final StringBuilder[] sb = new StringBuilder[]{new StringBuilder(128)};
+		final int[] escapePointer = new int[]{0};
+		CharsIterator.iterate(input, new CharsIterator.CharConsumer() {
+			@Override
+			public final void onChar(final int index, final char ch, final int length) {
+				switch(escapePointer[0]){
+				case 0:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0]++;
+						sb[0].append(ch);
+					}else{
+						if (ch == on){
+							if (sb[0].length() > 0)
+								result.add(sb[0].toString());
+							sb[0] = new StringBuilder(128);
+						}else
+							sb[0].append(ch);
+					}
+					break;
+				default:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0] = 0;
+						sb[0].append(ch);
 					}else
-						sb.append(ch);
+						sb[0].append(ch);
+					break;
 				}
-				break;
-			default:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer = 0;
-					sb.append(ch);
-				}else
-					sb.append(ch);
-				break;
 			}
-
-		}
-		if (sb.length() > 0)
-			result.add(sb.toString());
+		});
+		if (sb[0].length() > 0)
+			result.add(sb[0].toString());
 		return result.toArray(new String[result.size()]);
 	}
 
@@ -106,35 +108,35 @@ public final class Splitter {
 	 */
 	public static final String[] splitIncludeEmpty(final String input, final char on, final char[] escapeCharacters){
 		final ArrayList<String> result = new ArrayList<String>();
-		StringBuilder sb = new StringBuilder();
-		final char[] arr = input.toCharArray();
-		int escapePointer = 0;
-		for (int i = 0; i < arr.length; i++) {
-			final char ch = arr[i];
-			switch(escapePointer){
-			case 0:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer++;
-					sb.append(ch);
-				}else{
-					if (ch == on){
-						result.add(sb.toString());
-						sb = new StringBuilder();
+		final StringBuilder[] sb = new StringBuilder[]{new StringBuilder(128)};
+		final int[] escapePointer = new int[]{0};
+		CharsIterator.iterate(input, new CharsIterator.CharConsumer() {
+			@Override
+			public final void onChar(final int index, final char ch, final int length) {
+				switch(escapePointer[0]){
+				case 0:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0]++;
+						sb[0].append(ch);
+					}else{
+						if (ch == on){
+							result.add(sb[0].toString());
+							sb[0] = new StringBuilder(128);
+						}else
+							sb[0].append(ch);
+					}
+					break;
+				default:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0] = 0;
+						sb[0].append(ch);
 					}else
-						sb.append(ch);
+						sb[0].append(ch);
+					break;
 				}
-				break;
-			default:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer = 0;
-					sb.append(ch);
-				}else
-					sb.append(ch);
-				break;
 			}
-
-		}
-		result.add(sb.toString());
+		});
+		result.add(sb[0].toString());
 		return result.toArray(new String[result.size()]);
 	}
 
@@ -147,38 +149,39 @@ public final class Splitter {
 	 */
 	public static final String[] splitIgnoreEscapes(final String input, final char on, final char[] escapeCharacters){
 		final ArrayList<String> result = new ArrayList<String>();
-		StringBuilder sb = new StringBuilder();
-		final char[] arr = input.toCharArray();
-		int escapePointer = 0;
-		for (int i = 0; i < arr.length; i++) {
-			final char ch = arr[i];
-			switch(escapePointer){
-			case 0:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer++;
-				}else{
-					if (ch == on){
-						if (sb.length() > 0)
-							result.add(sb.toString());
-						sb = new StringBuilder();
+		final StringBuilder[] sb = new StringBuilder[]{new StringBuilder(128)};
+		final int[] escapePointer = new int[]{0};
+		CharsIterator.iterate(input, new CharsIterator.CharConsumer() {
+			@Override
+			public final void onChar(final int index, final char ch, final int length) {
+				switch(escapePointer[0]){
+				case 0:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0]++;
+					}else{
+						if (ch == on){
+							if (sb[0].length() > 0)
+								result.add(sb[0].toString());
+							sb[0] = new StringBuilder(128);
+						}else
+							sb[0].append(ch);
+					}
+					break;
+				default:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0] = 0;
 					}else
-						sb.append(ch);
+						sb[0].append(ch);
+					break;
 				}
-				break;
-			default:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer = 0;
-				}else
-					sb.append(ch);
-				break;
 			}
-
-		}
-		if (sb.length() > 0)
-			result.add(sb.toString());
+		});
+		
+		if (sb[0].length() > 0)
+			result.add(sb[0].toString());
 		return result.toArray(new String[result.size()]);
 	}
-	
+
 	/**
 	 * Splites string not including escape characters 
 	 * Includes empty splitted elements.
@@ -189,33 +192,33 @@ public final class Splitter {
 	 */
 	public static final String[] splitIgnoreEscapesIncludeEmpty(final String input, final char on, final char[] escapeCharacters){
 		final ArrayList<String> result = new ArrayList<String>();
-		StringBuilder sb = new StringBuilder();
-		final char[] arr = input.toCharArray();
-		int escapePointer = 0;
-		for (int i = 0; i < arr.length; i++) {
-			final char ch = arr[i];
-			switch(escapePointer){
-			case 0:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer++;
-				}else{
-					if (ch == on){
-						result.add(sb.toString());
-						sb = new StringBuilder();
+		final StringBuilder[] sb = new StringBuilder[]{new StringBuilder(128)};
+		final int[] escapePointer = new int[]{0};
+		CharsIterator.iterate(input, new CharsIterator.CharConsumer() {
+			@Override
+			public final void onChar(final int index, final char ch, final int length) {
+				switch(escapePointer[0]){
+				case 0:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0]++;
+					}else{
+						if (ch == on){
+							result.add(sb[0].toString());
+							sb[0] = new StringBuilder(128);
+						}else
+							sb[0].append(ch);
+					}
+					break;
+				default:
+					if (isInArray(ch, escapeCharacters)){
+						escapePointer[0] = 0;
 					}else
-						sb.append(ch);
+						sb[0].append(ch);
+					break;
 				}
-				break;
-			default:
-				if (isInArray(ch, escapeCharacters)){
-					escapePointer = 0;
-				}else
-					sb.append(ch);
-				break;
 			}
-
-		}
-		result.add(sb.toString());
+		});
+		result.add(sb[0].toString());
 		return result.toArray(new String[result.size()]);
 	}
 
