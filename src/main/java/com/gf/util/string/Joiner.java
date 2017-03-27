@@ -13,8 +13,9 @@ public final class Joiner {
 		
 		return join(list, on);
 	}
+
 	
-	public static final String join(final Collection<Object> coll, final String on){
+	public static final String join(final Collection<?> coll, final String on){
 		final int len = coll.size();
 		final List<String> strs = toStrs(coll);
 		switch(len){
@@ -42,7 +43,7 @@ public final class Joiner {
 	}
 	
 	
-	private static final List<String> toStrs(final Collection<Object> coll){
+	private static final List<String> toStrs(final Collection<?> coll){
 		final ArrayList<String> res = new ArrayList<String>(coll.size());
 		for(final Object o : coll){
 			if (o == null)
