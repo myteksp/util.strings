@@ -33,6 +33,9 @@ public final class JSON {
 	}
 	
 	public static final <T> T fromJson(final String json, final Class<T> valueType){
+		if (json == null)
+			return null;
+		
 		try {
 			return mapper.readValue(json, valueType);
 		} catch (final JsonParseException e) {
