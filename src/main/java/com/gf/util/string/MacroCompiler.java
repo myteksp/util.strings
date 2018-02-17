@@ -1,7 +1,9 @@
 package com.gf.util.string;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public final class MacroCompiler {
 	public static final String compile(final String script, 
@@ -9,12 +11,28 @@ public final class MacroCompiler {
 			final ValueSerializer serializer){
 		if (script == null)
 			return "";
+		if (params == null)
+			return script;
+		if (params.isEmpty())
+			return script;
+		if (serializer == null)
+			throw new NullPointerException("serializer was null");
+		
+		final int paramInitialLen = 15;
+		final Map<String, String> paramsStr = new HashMap<String, String>(params.size() + 4);
+		int paramLen = 0;
+		for(final Entry<String, Object> e : params.entrySet()) {
+			final String v = serializer.serialize(e.getValue());
+			paramLen += v.length();
+			paramsStr.put(e.getKey(), v);
+		}
+		
 
-		final StringBuilder sb = new StringBuilder(script.length() * 2);
+		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
 
 		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
 			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(25);
+			private StringBuilder param = new StringBuilder(paramInitialLen);
 			@Override
 			public final void onChar(final int i, final char c, final int len) {
 				switch(c){
@@ -48,8 +66,8 @@ public final class MacroCompiler {
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
 						final String paranStr = param.toString();
-						param = new StringBuilder(25);
-						final String paramValue = serializer.serialize(params.get(paranStr));
+						param = new StringBuilder(paramInitialLen);
+						final String paramValue = paramsStr.get(paranStr);
 						if (paramValue == null)
 							sb.append("${").append(paranStr).append('}');
 						else
@@ -84,12 +102,21 @@ public final class MacroCompiler {
 			final Map<String, String> params){
 		if (script == null)
 			return "";
-
-		final StringBuilder sb = new StringBuilder(script.length() * 2);
+		if (params == null)
+			return script;
+		if (params.isEmpty())
+			return script;
+		
+		final int paramInitialLen = 15;
+		int paramLen = 0;
+		for(final Entry<String, String> e : params.entrySet()) 
+			paramLen += e.getValue().length();
+		
+		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
 
 		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
 			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(25);
+			private StringBuilder param = new StringBuilder(paramInitialLen);
 			@Override
 			public final void onChar(final int i, final char c, final int len) {
 				switch(c){
@@ -123,7 +150,7 @@ public final class MacroCompiler {
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
 						final String paranStr = param.toString();
-						param = new StringBuilder(25);
+						param = new StringBuilder(paramInitialLen);
 						final String paramValue = params.get(paranStr);
 						if (paramValue == null)
 							sb.append("${").append(paranStr).append('}');
@@ -159,12 +186,20 @@ public final class MacroCompiler {
 			final List<String> params){
 		if (script == null)
 			return "";
-
-		final StringBuilder sb = new StringBuilder(script.length() * 2);
+		if (params == null)
+			return script;
+		if (params.isEmpty())
+			return script;
+		final int paramInitialLen = 4;
+		int paramLen = 0;
+		for(final String e : params) 
+			paramLen += e.length();
+		
+		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
 		
 		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
 			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(25);
+			private StringBuilder param = new StringBuilder(paramInitialLen);
 			@Override
 			public final void onChar(final int i, final char c, final int len) {
 				switch(c){
@@ -198,7 +233,7 @@ public final class MacroCompiler {
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
 						final String paramStr = param.toString();
-						param = new StringBuilder(25);
+						param = new StringBuilder(paramInitialLen);
 						final String paramValue = params.get(Integer.parseInt(paramStr));
 						if (paramValue == null)
 							sb.append("${").append(paramStr).append('}');
@@ -230,17 +265,31 @@ public final class MacroCompiler {
 		
 		return sb.toString();
 	}
+	
+	public static final String compileInline(final String script, 
+			final String ...params){
+		return compile(script, params);
+	}
 
 	public static final String compile(final String script, 
 			final String[] params){
 		if (script == null)
 			return "";
+		if (params == null)
+			return script;
+		if (params.length == 0)
+			return script;
 
-		final StringBuilder sb = new StringBuilder(script.length() * 2);
+		final int paramInitialLen = 4;
+		int paramLen = 0;
+		for(final String e : params) 
+			paramLen += e.length();
+		
+		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
 		
 		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
 			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(25);
+			private StringBuilder param = new StringBuilder(paramInitialLen);
 			@Override
 			public final void onChar(final int i, final char c, final int len) {
 				switch(c){
@@ -274,7 +323,7 @@ public final class MacroCompiler {
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
 						final String paramStr = param.toString();
-						param = new StringBuilder(25);
+						param = new StringBuilder(paramInitialLen);
 						final String paramValue = params[Integer.parseInt(paramStr)];
 						if (paramValue == null)
 							sb.append("${").append(paramStr).append('}');
