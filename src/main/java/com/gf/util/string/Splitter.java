@@ -1,6 +1,8 @@
 package com.gf.util.string;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public final class Splitter {
 	/**
@@ -10,7 +12,17 @@ public final class Splitter {
 	 * @return splited string.
 	 */
 	public static final String[] split(final String input, final char on){
-		final ArrayList<String> result = new ArrayList<String>();
+		final List<String> result = splitToList(input, on);
+		return result.toArray(new String[result.size()]);
+	}
+	
+	public static final String[] split(final String input, final String on){
+		final List<String> result = splitToList(input, on);
+		return result.toArray(new String[result.size()]);
+	}
+	
+	public static final List<String> splitToList(final String input, final char on){
+		final LinkedList<String> result = new LinkedList<String>();
 		final StringBuilder[] sb = new StringBuilder[]{new StringBuilder(128)};
 		CharsIterator.iterate(input, new CharsIterator.CharConsumer() {
 			@Override
@@ -27,7 +39,39 @@ public final class Splitter {
 		if (sb[0].length() > 0)
 			result.add(sb[0].toString());
 
-		return result.toArray(new String[result.size()]);
+		return result;
+	}
+	
+	public static final List<String> splitToList(final String input, final String on){
+		final LinkedList<String> result = new LinkedList<String>();
+		final char[] data = input.toCharArray();
+		final char[] window = on.toCharArray();
+		final int dlen = data.length;
+		final int wlen = window.length;
+		StringBuilder sb = new StringBuilder(dlen);
+		
+		for (int i = 0; i < dlen; i++) 
+			if (isWindowMatched(i, data, window, wlen, dlen)) {
+				i = i + wlen - 1;
+				result.add(sb.toString());
+				sb = new StringBuilder(dlen);
+			} else 
+				sb.append(data[i]);
+		
+		result.add(sb.toString());
+		
+		return result;
+	}
+	
+	private static final boolean isWindowMatched(final int index, final char[] data, final char[] window, final int wlen, final int dlen) {
+		if (index + wlen > dlen)
+			return false;
+		
+		for (int i = 0; i < wlen; i++) 
+			if (window[i] != data[index + i])
+				return false;
+		
+		return true;
 	}
 
 	/**

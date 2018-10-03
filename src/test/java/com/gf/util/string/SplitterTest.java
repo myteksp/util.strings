@@ -5,6 +5,18 @@ import static org.junit.Assert.*;
 
 public final class SplitterTest {
 	@Test
+	public final void onStrSplitTest(){
+		assertEquals(4, Splitter.splitToList("[First][Second][Third][Fourth]", "][").size());
+		assertEquals(3, Splitter.splitToList("[First][Second][Third]", "][").size());
+		
+		assertEquals("[First", Splitter.splitToList("[First][Second][Third][Fourth]", "][").get(0));
+		assertEquals("Second", Splitter.splitToList("[First][Second][Third][Fourth]", "][").get(1));
+		assertEquals("Third", Splitter.splitToList("[First][Second][Third][Fourth]", "][").get(2));
+		assertEquals("Fourth]", Splitter.splitToList("[First][Second][Third][Fourth]", "][").get(3));
+		assertEquals("Lonly", Splitter.splitToList("Lonly", "][").get(0));
+	}
+	
+	@Test
 	public final void simpleSplitTest(){
 		assertEquals(4, Splitter.split("First|Second|Third|Fourth", '|').length);
 		assertEquals(3, Splitter.split("First|Second|Third", '|').length);
