@@ -46,4 +46,27 @@ public final class MacroCompilerTest {
 					}
 				}));
 	}
+
+	@Test
+	public final void speed(){
+		final int len = 1024*10;
+		for (int i = 0; i < len; i++) {
+			final String s1 = MC.fmt("Here goes ${0}. Repeat ${1}. Second: '${2}'. Macro: ${3}. Fourth: ${4}", "1", "2", "3", "4", "5");
+			final String s2 = String.format("Here goes %s. Repeat %s. Second: '%s'. Macro: %s. Fourth: %s", "1", "2", "3", "4", "5");
+			assertEquals(MC.format("Inconsistent with system format. ${0}  ---  ${1}", s1, s2), s1, s2);
+		}
+		for (int j = 0; j < 20; j++) {
+			long gfTime = System.currentTimeMillis();
+			for (int i = 0; i < len; i++) {
+				MC.fmt("Here goes ${0}. Repeat ${1}. Second: '${2}'. Macro: ${3}. Fourth: ${4}", "1", "2", "3", "4", "5");
+			}
+			gfTime = System.currentTimeMillis() - gfTime;
+			long ftime = System.currentTimeMillis();
+			for (int i = 0; i < len; i++) {
+				String.format("Here goes %s. Repeat %s. Second: '%s'. Macro: %s. Fourth: %s", "1", "2", "3", "4", "5");
+			}
+			ftime = System.currentTimeMillis() - ftime;
+			System.out.println(MC.fmt("GF-${0} millis; System-${1} millis.", gfTime, ftime));
+		}
+	}
 }

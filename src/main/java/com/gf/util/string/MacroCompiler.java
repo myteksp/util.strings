@@ -266,6 +266,106 @@ public final class MacroCompiler {
 		return sb.toString();
 	}
 	
+	private static final String objStr(final Object o) {
+		if (o == null)
+			return "[null]";
+		return o.toString();
+	}
+	private static final String[] cvrt(final Object[] o) {
+		final int len = o.length;
+		final String[] res = new String[len];
+		for (int i = 0; i < len; i++) 
+			res[i] = objStr(o[i]);
+		return res;
+	}
+	
+	public static final String compileObjects(final String script, 
+			final Object[] raw){
+		if (script == null)
+			return "";
+		if (raw == null)
+			return script;
+		if (raw.length == 0)
+			return script;
+		
+		final String[] params = cvrt(raw);
+		
+		final int paramInitialLen = 4;
+		int paramLen = 0;
+		for(final String e : params) 
+			paramLen += e.length();
+		
+		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
+		
+		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
+			private MacroState state = MacroState.EXPECTING_START;
+			private StringBuilder param = new StringBuilder(paramInitialLen);
+			@Override
+			public final void onChar(final int i, final char c, final int len) {
+				switch(c){
+				case '$':
+					switch(state){
+					case EXPECTING_START:
+						state = MacroState.EXPECTING_OPEN;
+						break;
+					case EXPECTING_OPEN:
+						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
+					case EXPECTING_CLOSE:
+						param.append(c);
+						break;
+					}
+					break;
+				case '{':
+					switch(state){
+					case EXPECTING_OPEN:
+						state = MacroState.EXPECTING_CLOSE;
+						break;
+					case EXPECTING_CLOSE:
+						param.append(c);
+						break;
+					case EXPECTING_START:
+						sb.append(c);
+						break;
+					}
+					break;
+				case '}':
+					switch(state){
+					case EXPECTING_CLOSE:
+						state = MacroState.EXPECTING_START;
+						final String paramStr = param.toString();
+						param = new StringBuilder(paramInitialLen);
+						final String paramValue = params[Integer.parseInt(paramStr)];
+						if (paramValue == null)
+							sb.append("${").append(paramStr).append('}');
+						else
+							sb.append(paramValue);
+						break;
+					case EXPECTING_OPEN:
+						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
+					case EXPECTING_START:
+						sb.append(c);
+						break;
+					}
+					break;
+				default:
+					switch(state){
+					case EXPECTING_START:
+						sb.append(c);
+						break;
+					case EXPECTING_OPEN:
+						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
+					case EXPECTING_CLOSE:
+						param.append(c);
+						break;
+					}
+					break;
+				}
+			}
+		});
+		
+		return sb.toString();
+	}
+	
 	public static final String compileInline(final String script, 
 			final String ...params){
 		return compile(script, params);
