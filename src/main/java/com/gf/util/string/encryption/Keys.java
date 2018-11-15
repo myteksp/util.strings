@@ -73,10 +73,19 @@ public final class Keys {
 		pblc.algorithm = prvt.algorithm = algorithm;
 		prvt.format = privateKey.getFormat();
 		pblc.format = publicKey.getFormat();
-		prvt.key = Base64.getUrlEncoder().encodeToString(privateKey.getEncoded());
-		pblc.key = Base64.getUrlEncoder().encodeToString(publicKey.getEncoded());
+		prvt.key = encodeKey(privateKey.getEncoded());
+		pblc.key = encodeKey(publicKey.getEncoded());
 		return res;
 	}
+	
+	private static final String encodeKey(final byte[] key) {
+		return Base64.getUrlEncoder().encodeToString(key);
+	}
+	
+	private static final byte[] decodeKey(final String key) {
+		return Base64.getUrlDecoder().decode(key);
+	}
+	
 
 	public static enum Algorithm{
 		DSA, RSA, EC, DH
@@ -131,6 +140,11 @@ public final class Keys {
 		public Algorithm algorithm;
 		public String format;
 		public String key;
+		
+		public final byte[] toEncodedKey() {
+			return decodeKey(key);
+		}
+		
 		@Override
 		public final int hashCode() {
 			final int prime = 31;
