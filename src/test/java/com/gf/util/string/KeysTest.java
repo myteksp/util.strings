@@ -78,5 +78,6 @@ public class KeysTest {
 			dec.decrypt(enc.encrypt(data));
 		}
 		System.out.println("Encrypted end decrypted " + len + " messages in " + (System.currentTimeMillis() - time) + " milliseconds.");
+		System.out.println("Key pair size: " + pair.toJson().length() + " Size in kb: " + (pair.toJson().length() / 1024));
 	}
 }
