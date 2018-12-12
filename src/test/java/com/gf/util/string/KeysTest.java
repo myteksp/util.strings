@@ -40,10 +40,10 @@ public class KeysTest {
 	
 	@Test
 	public final void serializationTest() throws NoSuchAlgorithmException{
-		System.out.println("Parsed - DH" + Keys.fromJson(Keys.createKeyPair(512, Keys.Algorithm.DH).toJson()).toJson());
-		System.out.println("Parsed - DSA" + Keys.fromJson(Keys.createKeyPair(1024, Keys.Algorithm.DSA).toJson()).toJson());
-		System.out.println("Parsed - EC" + Keys.fromJson(Keys.createKeyPair(128, Keys.Algorithm.EC).toJson()).toJson());
-		System.out.println("Parsed - RSA" + Keys.fromJson(Keys.createKeyPair(1024, Keys.Algorithm.RSA).toJson()).toJson());
+		System.out.println("Parsed - DH" + Keys.keyPairFromJson(Keys.createKeyPair(512, Keys.Algorithm.DH).toJson()).toJson());
+		System.out.println("Parsed - DSA" + Keys.keyPairFromJson(Keys.createKeyPair(1024, Keys.Algorithm.DSA).toJson()).toJson());
+		System.out.println("Parsed - EC" + Keys.keyPairFromJson(Keys.createKeyPair(128, Keys.Algorithm.EC).toJson()).toJson());
+		System.out.println("Parsed - RSA" + Keys.keyPairFromJson(Keys.createKeyPair(1024, Keys.Algorithm.RSA).toJson()).toJson());
 	}
 	
 	

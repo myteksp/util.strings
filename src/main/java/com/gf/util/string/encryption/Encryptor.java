@@ -1,27 +1,29 @@
 package com.gf.util.string.encryption;
 
 import java.nio.charset.Charset;
-import java.security.InvalidKeyException;
 import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
 
 import com.gf.util.string.encryption.Keys.Key;
+import com.gf.util.string.encryption.exceptions.EncryptorCreationException;
+import com.gf.util.string.encryption.exceptions.WrongKeyException;
 
 public final class Encryptor {
 	private final Cipher cipher;
 
-	public Encryptor(final Key publicKey) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException {
+	public Encryptor(final Key publicKey){
 		checkKey(publicKey);
-		final String algorithm = publicKey.algorithm.toString();
-		final KeyFactory kf = KeyFactory.getInstance(algorithm);
-		this.cipher = Cipher.getInstance(algorithm);
-		this.cipher.init(Cipher.ENCRYPT_MODE, kf.generatePublic(new X509EncodedKeySpec(publicKey.toEncodedKey())));
+		try {
+			final String algorithm = publicKey.algorithm.toString();
+			final KeyFactory kf = KeyFactory.getInstance(algorithm);
+			this.cipher = Cipher.getInstance(algorithm);
+			this.cipher.init(Cipher.ENCRYPT_MODE, kf.generatePublic(new X509EncodedKeySpec(publicKey.toEncodedKey())));
+		}catch(final Throwable t) {
+			throw new EncryptorCreationException(t);
+		}
 	}
 
 	public final byte[] encrypt(final byte[] data) {
@@ -37,10 +39,10 @@ public final class Encryptor {
 	public final String encrypt(final String data, final Charset charset) {
 		if (data == null)
 			throw new NullPointerException("data can not be null");
-		
+
 		return Base64.getUrlEncoder().encodeToString(encrypt(data.getBytes(charset)));
 	}
-	
+
 	public final String encrypt(final String data) {
 		if (data == null)
 			throw new NullPointerException("data can not be null");
@@ -59,9 +61,9 @@ public final class Encryptor {
 		if (publicKey.key == null)
 			throw new NullPointerException("publicKey.key can not be null");
 		if (publicKey.format.isEmpty())
-			throw new RuntimeException("publicKey.format can not be empty");
+			throw new WrongKeyException("publicKey.format can not be empty");
 		if (publicKey.key.isEmpty())
-			throw new RuntimeException("publicKey.key can not be empty");
+			throw new WrongKeyException("publicKey.key can not be empty");
 		switch(publicKey.type) {
 		case PUBLIC:
 			break;
@@ -75,7 +77,7 @@ public final class Encryptor {
 			throw new RuntimeException("only 'publicKey.algorithm==RSA' are accepted to encryptor");
 		}
 	}
-	
+
 	public static final Encryptor get(final Key publicKey) {
 		try {
 			return new Encryptor(publicKey);

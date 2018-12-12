@@ -8,6 +8,9 @@ import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.util.Base64;
 import com.gf.util.string.JSON;
+import com.gf.util.string.encryption.exceptions.EncriptionException;
+import com.gf.util.string.encryption.exceptions.ParseKeyException;
+import com.gf.util.string.encryption.exceptions.WrongKeyException;
 
 public final class Keys {
 
@@ -46,15 +49,43 @@ public final class Keys {
 		try {
 			return createKeyPair(len, Algorithm.RSA);
 		} catch (final NoSuchAlgorithmException e) {
-			return null;
+			throw new EncriptionException("Default algorithm '${0}' is not found on the system.", Algorithm.RSA);
 		}
 	}
 
-	public static final KeyPair fromJson(final String json){
+	public static final KeyPair keyPairFromJson(final String json){
 		try {
 			return JSON.fromJson(json, KeyPair.class);
 		}catch(final Throwable t) {
-			throw new RuntimeException(t);
+			throw new ParseKeyException(t);
+		}
+	}
+	
+	public static final Key publicKeyFromJson(final String json) {
+		final Key result = keyFromJson(json);
+		switch(result.type) {
+		case PUBLIC:
+			return result;
+		default:
+			throw new WrongKeyException("Expected: ${0}, Got: ${1}.", KeyType.PUBLIC, result.type);
+		}
+	}
+	
+	public static final Key privateKeyFromJson(final String json) {
+		final Key result = keyFromJson(json);
+		switch(result.type) {
+		case PRIVATE:
+			return result;
+		default:
+			throw new WrongKeyException("Expected: ${0}, Got: ${1}.", KeyType.PRIVATE, result.type);
+		}
+	}
+	
+	private static final Key keyFromJson(final String json) {
+		try {
+			return JSON.fromJson(json, Key.class);
+		}catch(final Throwable t) {
+			throw new ParseKeyException(t);
 		}
 	}
 
