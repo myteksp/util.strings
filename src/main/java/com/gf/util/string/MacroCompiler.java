@@ -325,11 +325,7 @@ public final class MacroCompiler {
 			return sb.toString();
 		}
 		
-		try {
-			return JSON.toJson(o);
-		}catch(final Throwable t) {
-			return o.toString();
-		}
+		return o.toString();
 	}
 	private static final String[] cvrt(final Object[] o) {
 		final int len = o.length;
