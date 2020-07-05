@@ -65,11 +65,11 @@ public final class MacroCompiler {
 					switch(state){
 					case EXPECTING_CLOSE:
 						state = MacroState.EXPECTING_START;
-						final String paranStr = param.toString();
+						final String paramStr = param.toString();
 						param = new StringBuilder(paramInitialLen);
-						final String paramValue = paramsStr.get(paranStr);
+						final String paramValue = paramsStr.get(paramStr);
 						if (paramValue == null)
-							sb.append("${").append(paranStr).append('}');
+							sb.append("${").append(paramStr).append('}');
 						else
 							sb.append(paramValue);
 						break;

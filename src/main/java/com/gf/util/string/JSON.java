@@ -1,6 +1,7 @@
 package com.gf.util.string;
 
 import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,16 +13,15 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 public final class JSON {
 	private static final ObjectMapper mapper = new ObjectMapper();
 	private static final ObjectMapper prettyMapper = new ObjectMapper();
-
-	private static final ObjectMapper yaml = new ObjectMapper(new YAMLFactory());
-	
+	private static final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
 	static{
 		prettyMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		yamlMapper.findAndRegisterModules();
 	}
 
 	public static final String toYaml(final Object obj){
 		try {
-			return yaml.writeValueAsString(obj);
+			return yamlMapper.writeValueAsString(obj);
 		} catch (final JsonProcessingException e) {
 			throw new RuntimeException(e);
 		}
@@ -44,7 +44,7 @@ public final class JSON {
 	}
 
 	public static final <T> T fromYaml(final String yaml, final Class<T> valueType){
-		return read(mapper, yaml, valueType);
+		return read(yamlMapper, yaml, valueType);
 	}
 	
 	public static final <T> T fromJson(final String json, final Class<T> valueType){
