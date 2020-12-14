@@ -3,6 +3,7 @@ package com.gf.util.string;
 import static org.junit.Assert.assertEquals;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class KeysTest {
 		final int len = 5;
 		System.out.println("Warming up");
 		for (int i = 0; i < len; i++) {
-			Keys.createKeyPair().toJson();
+			Objects.requireNonNull(Keys.createKeyPair()).toJson();
 		}
 		System.out.println("Warming up - DONE.");
 		final long time = System.currentTimeMillis();
@@ -26,7 +27,7 @@ public class KeysTest {
 		}
 		System.out.println("Time for " + len + " keys:" + (System.currentTimeMillis() - time));
 		for (int i = 0; i < 10; i++) {
-			System.out.println(Keys.createKeyPair().toJson());
+			System.out.println(Objects.requireNonNull(Keys.createKeyPair()).toJson());
 		}
 	}
 	
@@ -34,7 +35,6 @@ public class KeysTest {
 	public final void algorithmsKeyTest() throws NoSuchAlgorithmException{
 		System.out.println("DH" + Keys.createKeyPair(512, Keys.Algorithm.DH).toJson());
 		System.out.println("DSA" + Keys.createKeyPair(1024, Keys.Algorithm.DSA).toJson());
-		System.out.println("EC" + Keys.createKeyPair(128, Keys.Algorithm.EC).toJson());
 		System.out.println("RSA" + Keys.createKeyPair(1024, Keys.Algorithm.RSA).toJson());
 	}
 	
@@ -42,7 +42,6 @@ public class KeysTest {
 	public final void serializationTest() throws NoSuchAlgorithmException{
 		System.out.println("Parsed - DH" + Keys.keyPairFromJson(Keys.createKeyPair(512, Keys.Algorithm.DH).toJson()).toJson());
 		System.out.println("Parsed - DSA" + Keys.keyPairFromJson(Keys.createKeyPair(1024, Keys.Algorithm.DSA).toJson()).toJson());
-		System.out.println("Parsed - EC" + Keys.keyPairFromJson(Keys.createKeyPair(128, Keys.Algorithm.EC).toJson()).toJson());
 		System.out.println("Parsed - RSA" + Keys.keyPairFromJson(Keys.createKeyPair(1024, Keys.Algorithm.RSA).toJson()).toJson());
 	}
 	
@@ -65,6 +64,7 @@ public class KeysTest {
 	@Test
 	public final void encodeDecodeSpeedTest() throws NoSuchAlgorithmException{
 		final KeyPair pair = Keys.createKeyPair();
+		assert pair != null;
 		final Encryptor enc = Encryptor.get(pair.publicKey);
 		final Decryptor dec = Decryptor.get(pair.privateKey);
 		final String data = "Hello there! Hello there! Hello there! Hello there! Hello there! Hello there! Hello there!";

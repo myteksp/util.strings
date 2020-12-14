@@ -1,6 +1,7 @@
 package com.gf.util.string.encryption;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
@@ -46,7 +47,7 @@ public final class Encryptor {
 	public final String encrypt(final String data) {
 		if (data == null)
 			throw new NullPointerException("data can not be null");
-		return encrypt(data, Charset.forName("UTF-8"));
+		return encrypt(data, StandardCharsets.UTF_8);
 	}
 
 	private static final void checkKey(final Key publicKey) {
@@ -64,16 +65,10 @@ public final class Encryptor {
 			throw new WrongKeyException("publicKey.format can not be empty");
 		if (publicKey.key.isEmpty())
 			throw new WrongKeyException("publicKey.key can not be empty");
-		switch(publicKey.type) {
-		case PUBLIC:
-			break;
-		default:
+		if (publicKey.type != Keys.KeyType.PUBLIC) {
 			throw new RuntimeException("only 'publicKey.type==PUBLIC' are accepted to encryptor");
 		}
-		switch(publicKey.algorithm) {
-		case RSA:
-			break;
-		default:
+		if (publicKey.algorithm != Keys.Algorithm.RSA) {
 			throw new RuntimeException("only 'publicKey.algorithm==RSA' are accepted to encryptor");
 		}
 	}

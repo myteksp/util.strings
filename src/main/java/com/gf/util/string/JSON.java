@@ -57,10 +57,6 @@ public final class JSON {
 
 		try {
 			return map.readValue(value, valueType);
-		} catch (final JsonParseException e) {
-			throw new RuntimeException(e);
-		} catch (final JsonMappingException e) {
-			throw new RuntimeException(e);
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}

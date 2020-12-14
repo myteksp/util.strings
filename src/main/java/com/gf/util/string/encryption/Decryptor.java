@@ -1,6 +1,7 @@
 package com.gf.util.string.encryption;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
@@ -13,7 +14,6 @@ import com.gf.util.string.encryption.exceptions.WrongKeyException;
 
 public final class Decryptor {
 	private final Cipher cipher;
-
 	public Decryptor(final Key privateKey){
 		try {
 			checkKey(privateKey);
@@ -46,7 +46,7 @@ public final class Decryptor {
 	public final String decrypt(final String data) {
 		if (data == null)
 			throw new NullPointerException("data can not be null");
-		return decrypt(data, Charset.forName("UTF-8"));
+		return decrypt(data, StandardCharsets.UTF_8);
 	}
 
 	private static final void checkKey(final Key privateKey) {
@@ -64,16 +64,10 @@ public final class Decryptor {
 			throw new WrongKeyException("privateKey.format can not be empty");
 		if (privateKey.key.isEmpty())
 			throw new WrongKeyException("privateKey.key can not be empty");
-		switch(privateKey.type) {
-		case PRIVATE:
-			break;
-		default:
+		if (privateKey.type != Keys.KeyType.PRIVATE) {
 			throw new RuntimeException("only 'publicKey.type==PRIVATE' are accepted to decryptor");
 		}
-		switch(privateKey.algorithm) {
-		case RSA:
-			break;
-		default:
+		if (privateKey.algorithm != Keys.Algorithm.RSA) {
 			throw new RuntimeException("only 'publicKey.algorithm==RSA' are accepted to encryptor");
 		}
 	}

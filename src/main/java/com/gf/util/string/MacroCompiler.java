@@ -6,264 +6,130 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public final class MacroCompiler {
-	public static final String compile(final String script, 
-			final Map<String, Object> params, 
-			final ValueSerializer serializer){
+	public static final String compile(final String script, final Map<String, Object> params, final ValueSerializer serializer){
 		if (script == null)
 			return "";
+		return execCompile(script, getParams(params, serializer));
+	}
+
+	public static final String compile(final String script, final Map<String, String> params){
+		if (script == null)
+			return "";
+		return execCompile(script, getParams(params));
+	}
+
+	public static final String compile(final String script, final String[] params){
+		return execCompile(script, getParams(params));
+	}
+	public static final String compile(final String script, final List<String> params){
 		if (params == null)
 			return script;
-		if (params.isEmpty())
+		final int len = params.size();
+		if (len < 1)
 			return script;
+		return compile(script, params.toArray(new String[len]));
+	}
+
+	public static final String compileObjects(final String script, final Object[] raw){
+		return compile(script, cvrt(raw));
+	}
+
+	public static final String compileInline(final String script, final String ...params){
+		return compile(script, params);
+	}
+
+	private static final ScriptParameters getParams(final String[] _params){
+		if (_params == null)
+			return null;
+		final int paramsArrayLength = _params.length;
+		if (paramsArrayLength == 0)
+			return null;
+
+		int paramInitialLen = 1;
+		int paramLen = 0;
+		for(final String e : _params) {
+			final int currentLength = e.length();
+			if (currentLength > paramInitialLen){
+				paramInitialLen = currentLength;
+			}
+			paramLen += currentLength;
+		}
+		final int _maxParamLen = paramInitialLen + 1;
+		final int _totalParamsLen = paramLen;
+
+		return new ScriptParameters() {
+			private final int maxParamLen = _maxParamLen;
+			private final int totalParamsLen = _totalParamsLen;
+			private final int arrLen = paramsArrayLength;
+			private final String[] params = _params;
+			@Override
+			public final int maxParamLen() {
+				return maxParamLen;
+			}
+			@Override
+			public final int totalParamsLen() {
+				return totalParamsLen;
+			}
+			@Override
+			public final String getParamValue(final String paramId) {
+				final int index = Integer.parseInt(paramId);
+				if (index < 0 || index >= arrLen)
+					return null;
+				return params[index];
+			}
+		};
+	}
+
+	private static final ScriptParameters getParams(final Map<String, Object> _params, final ValueSerializer serializer){
+		if (_params == null)
+			return null;
+		if (_params.isEmpty())
+			return null;
 		if (serializer == null)
 			throw new NullPointerException("serializer was null");
 
-		final int paramInitialLen = 15;
-		final Map<String, String> paramsStr = new HashMap<String, String>(params.size() + 4);
+		final int size = _params.size();
+		final Map<String, String> stringMap = new HashMap<String, String>(size + 16);
+		for(final Entry<String, Object> e : _params.entrySet())
+			stringMap.put(e.getKey(), serializer.serialize(e.getValue()));
+
+		return getParams(stringMap);
+	}
+
+	private static final ScriptParameters getParams(final Map<String, String> _params){
+		if (_params == null)
+			return null;
+		if (_params.isEmpty())
+			return null;
+
+		int paramInitialLen = 1;
 		int paramLen = 0;
-		for(final Entry<String, Object> e : params.entrySet()) {
-			final String v = serializer.serialize(e.getValue());
-			paramLen += v.length();
-			paramsStr.put(e.getKey(), v);
+		for(final Entry<String, String> e : _params.entrySet()){
+			final int currentLength = e.getValue().length();
+			if (currentLength > paramInitialLen){
+				paramInitialLen = currentLength;
+			}
+			paramLen += currentLength;
 		}
-
-
-		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
-
-		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
-			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(paramInitialLen);
+		final int _maxParamLen = paramInitialLen + 1;
+		final int _totalParamsLen = paramLen;
+		return new ScriptParameters() {
+			private final int maxParamLen = _maxParamLen;
+			private final int totalParamsLen = _totalParamsLen;
+			private final Map<String, String> params = _params;
 			@Override
-			public final void onChar(final int i, final char c, final int len) {
-				switch(c){
-				case '$':
-					switch(state){
-					case EXPECTING_START:
-						state = MacroState.EXPECTING_OPEN;
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				case '{':
-					switch(state){
-					case EXPECTING_OPEN:
-						state = MacroState.EXPECTING_CLOSE;
-						break;
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				case '}':
-					switch(state){
-					case EXPECTING_CLOSE:
-						state = MacroState.EXPECTING_START;
-						final String paramStr = param.toString();
-						param = new StringBuilder(paramInitialLen);
-						final String paramValue = paramsStr.get(paramStr);
-						if (paramValue == null)
-							sb.append("${").append(paramStr).append('}');
-						else
-							sb.append(paramValue);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				default:
-					switch(state){
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				}
+			public final int maxParamLen() {
+				return maxParamLen;
 			}
-		});
-		return sb.toString();
-	}
-
-	public static final String compile(final String script, 
-			final Map<String, String> params){
-		if (script == null)
-			return "";
-		if (params == null)
-			return script;
-		if (params.isEmpty())
-			return script;
-
-		final int paramInitialLen = 15;
-		int paramLen = 0;
-		for(final Entry<String, String> e : params.entrySet()) 
-			paramLen += e.getValue().length();
-
-		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
-
-		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
-			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(paramInitialLen);
 			@Override
-			public final void onChar(final int i, final char c, final int len) {
-				switch(c){
-				case '$':
-					switch(state){
-					case EXPECTING_START:
-						state = MacroState.EXPECTING_OPEN;
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				case '{':
-					switch(state){
-					case EXPECTING_OPEN:
-						state = MacroState.EXPECTING_CLOSE;
-						break;
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				case '}':
-					switch(state){
-					case EXPECTING_CLOSE:
-						state = MacroState.EXPECTING_START;
-						final String paranStr = param.toString();
-						param = new StringBuilder(paramInitialLen);
-						final String paramValue = params.get(paranStr);
-						if (paramValue == null)
-							sb.append("${").append(paranStr).append('}');
-						else
-							sb.append(paramValue);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				default:
-					switch(state){
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				}
+			public final int totalParamsLen() {
+				return totalParamsLen;
 			}
-		});
-		return sb.toString();
-	}
-
-	public static final String compile(final String script, 
-			final List<String> params){
-		if (script == null)
-			return "";
-		if (params == null)
-			return script;
-		if (params.isEmpty())
-			return script;
-		final int paramInitialLen = 4;
-		int paramLen = 0;
-		for(final String e : params) 
-			paramLen += e.length();
-
-		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
-
-		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
-			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(paramInitialLen);
 			@Override
-			public final void onChar(final int i, final char c, final int len) {
-				switch(c){
-				case '$':
-					switch(state){
-					case EXPECTING_START:
-						state = MacroState.EXPECTING_OPEN;
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				case '{':
-					switch(state){
-					case EXPECTING_OPEN:
-						state = MacroState.EXPECTING_CLOSE;
-						break;
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				case '}':
-					switch(state){
-					case EXPECTING_CLOSE:
-						state = MacroState.EXPECTING_START;
-						final String paramStr = param.toString();
-						param = new StringBuilder(paramInitialLen);
-						final String paramValue = params.get(Integer.parseInt(paramStr));
-						if (paramValue == null)
-							sb.append("${").append(paramStr).append('}');
-						else
-							sb.append(paramValue);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				default:
-					switch(state){
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				}
+			public final String getParamValue(final String paramId) {
+				return params.get(paramId);
 			}
-		});
-
-		return sb.toString();
+		};
 	}
 
 	private static final void stackElementToStr(final StackTraceElement e, final StringBuilder sb) {
@@ -328,6 +194,8 @@ public final class MacroCompiler {
 		return o.toString();
 	}
 	private static final String[] cvrt(final Object[] o) {
+		if (o == null)
+			return null;
 		final int len = o.length;
 		final String[] res = new String[len];
 		for (int i = 0; i < len; i++) 
@@ -335,179 +203,80 @@ public final class MacroCompiler {
 		return res;
 	}
 
-	public static final String compileObjects(final String script, 
-			final Object[] raw){
-		if (script == null)
-			return "";
-		if (raw == null)
-			return script;
-		if (raw.length == 0)
-			return script;
-
-		final String[] params = cvrt(raw);
-
-		final int paramInitialLen = 4;
-		int paramLen = 0;
-		for(final String e : params) 
-			paramLen += e.length();
-
-		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
-
-		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
-			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(paramInitialLen);
-			@Override
-			public final void onChar(final int i, final char c, final int len) {
-				switch(c){
-				case '$':
-					switch(state){
-					case EXPECTING_START:
-						state = MacroState.EXPECTING_OPEN;
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				case '{':
-					switch(state){
-					case EXPECTING_OPEN:
-						state = MacroState.EXPECTING_CLOSE;
-						break;
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				case '}':
-					switch(state){
-					case EXPECTING_CLOSE:
-						state = MacroState.EXPECTING_START;
-						final String paramStr = param.toString();
-						param = new StringBuilder(paramInitialLen);
-						final String paramValue = params[Integer.parseInt(paramStr)];
-						if (paramValue == null)
-							sb.append("${").append(paramStr).append('}');
-						else
-							sb.append(paramValue);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					}
-					break;
-				default:
-					switch(state){
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					}
-					break;
-				}
-			}
-		});
-
-		return sb.toString();
-	}
-
-	public static final String compileInline(final String script, 
-			final String ...params){
-		return compile(script, params);
-	}
-
-	public static final String compile(final String script, 
-			final String[] params){
+	public static final String execCompile(final String script, final ScriptParameters params){
 		if (script == null)
 			return "";
 		if (params == null)
 			return script;
-		if (params.length == 0)
-			return script;
 
-		final int paramInitialLen = 4;
-		int paramLen = 0;
-		for(final String e : params) 
-			paramLen += e.length();
+		final int paramInitialLen = params.maxParamLen();
+		final int scriptLength = script.length();
+		final StringBuilder sb = new StringBuilder((int) ((scriptLength + params.totalParamsLen()) * 1.5));
 
-		final StringBuilder sb = new StringBuilder((int) ((script.length() + paramLen) * 1.5));
+		MacroState state = MacroState.EXPECTING_START;
+		StringBuilder param = new StringBuilder(paramInitialLen);
 
-		CharsIterator.iterate(script, new CharsIterator.CharConsumer() {
-			private MacroState state = MacroState.EXPECTING_START;
-			private StringBuilder param = new StringBuilder(paramInitialLen);
-			@Override
-			public final void onChar(final int i, final char c, final int len) {
-				switch(c){
+		for (int i = 0; i < scriptLength; i++){
+			final char c = script.charAt(i);
+			switch(c){
 				case '$':
 					switch(state){
-					case EXPECTING_START:
-						state = MacroState.EXPECTING_OPEN;
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
+						case EXPECTING_START:
+							state = MacroState.EXPECTING_OPEN;
+							break;
+						case EXPECTING_OPEN:
+							throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
+						case EXPECTING_CLOSE:
+							param.append(c);
+							break;
 					}
 					break;
 				case '{':
 					switch(state){
-					case EXPECTING_OPEN:
-						state = MacroState.EXPECTING_CLOSE;
-						break;
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
-					case EXPECTING_START:
-						sb.append(c);
-						break;
+						case EXPECTING_OPEN:
+							state = MacroState.EXPECTING_CLOSE;
+							break;
+						case EXPECTING_CLOSE:
+							param.append(c);
+							break;
+						case EXPECTING_START:
+							sb.append(c);
+							break;
 					}
 					break;
 				case '}':
 					switch(state){
-					case EXPECTING_CLOSE:
-						state = MacroState.EXPECTING_START;
-						final String paramStr = param.toString();
-						param = new StringBuilder(paramInitialLen);
-						final String paramValue = params[Integer.parseInt(paramStr)];
-						if (paramValue == null)
-							sb.append("${").append(paramStr).append('}');
-						else
-							sb.append(paramValue);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_START:
-						sb.append(c);
-						break;
+						case EXPECTING_CLOSE:
+							final String paramStr = param.toString();
+							state = MacroState.EXPECTING_START;
+							param = new StringBuilder(paramInitialLen);
+							final String paramValue = params.getParamValue(paramStr);
+							if (paramValue == null)
+								sb.append("${").append(paramStr).append('}');
+							else
+								sb.append(paramValue);
+							break;
+						case EXPECTING_OPEN:
+							throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
+						case EXPECTING_START:
+							sb.append(c);
+							break;
 					}
 					break;
 				default:
 					switch(state){
-					case EXPECTING_START:
-						sb.append(c);
-						break;
-					case EXPECTING_OPEN:
-						throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
-					case EXPECTING_CLOSE:
-						param.append(c);
-						break;
+						case EXPECTING_START:
+							sb.append(c);
+							break;
+						case EXPECTING_OPEN:
+							throw new RuntimeException("Expected '{' but got '" + c + "' in '" + script + "'.");
+						case EXPECTING_CLOSE:
+							param.append(c);
+							break;
 					}
 					break;
-				}
 			}
-		});
+		}
 
 		return sb.toString();
 	}
@@ -518,5 +287,11 @@ public final class MacroCompiler {
 
 	public static interface ValueSerializer {
 		String serialize(final Object value);
+	}
+
+	private static interface ScriptParameters{
+		int maxParamLen();
+		int totalParamsLen();
+		String getParamValue(final String paramId);
 	}
 }

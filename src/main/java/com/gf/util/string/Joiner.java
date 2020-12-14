@@ -1,16 +1,14 @@
 package com.gf.util.string;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
 public final class Joiner {
 	public static final String join(final Object[] coll, final String on){
-		final int len = coll.length;
-		final ArrayList<Object> list = new ArrayList<Object>(len);
-		for (int i = 0; i < len; i++) 
-			list.add(coll[i]);
-		
+		final ArrayList<Object> list = new ArrayList<Object>(coll.length);
+		list.addAll(Arrays.asList(coll));
 		return join(list, on);
 	}
 
@@ -43,7 +41,6 @@ public final class Joiner {
 	public static final String join(final Collection<?> coll, final GlueFunction glue){
 		final int len = coll.size();
 		final List<String> strs = toStrs(coll);
-		
 		switch(len){
 		case 0:
 			return glue.start(null);
